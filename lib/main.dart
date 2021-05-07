@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:semester_cup/Classes/users_demo.dart';
 import 'Screens/challenge_list_screen.dart';
 import 'Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => ChallengeListDemo(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => UserListDemo(),
           ),
         ],
         child: MaterialApp(
