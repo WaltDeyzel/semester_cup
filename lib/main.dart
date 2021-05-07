@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './Screens/main_screen.dart';
+import 'Screens/challenge_list_screen.dart';
+import 'Screens/home_screen.dart';
+import './Screens/leaderboard_screen.dart';
 import './Classes/challenges_demo.dart';
 
 void main() {
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           routes: {
-            '/': (ctx) => MainScreen(),
+            '/': (ctx) => HomeScreen(),
+            ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
+            LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
           },
         ));
   }
