@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../Classes/challenges_demo.dart' show ChallengeListDemo;
 
 class ChallengeList extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     //print(activeWallets[0].active);
@@ -12,7 +11,9 @@ class ChallengeList extends StatelessWidget {
     return Container(
       color: Theme.of(context).primaryColor,
       //height: 350,
-      child: challenges.isEmpty ? Text('No Challenges'): Column(
+      child: challenges.isEmpty
+          ? Text('No Challenges')
+          : Column(
               children: <Widget>[
                 ...challenges.map((element) {
                   return InkWell(
