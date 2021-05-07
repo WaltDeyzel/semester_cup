@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Widgets/challenge_list.dart';
+
 class MainScreen extends StatefulWidget {
   
   @override
@@ -8,12 +10,15 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   
-  
   @override
   Widget build(BuildContext context) {
-    
+
     return Scaffold(
-      body: Text('Main Page') 
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          ChallengeList(),
+        ],),
+      ),
     );
   }
 }
