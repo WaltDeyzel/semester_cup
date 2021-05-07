@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semester_cup/Widgets/add_challenge.dart';
 import './challenge.dart';
 
 class ChallengeListDemo with ChangeNotifier {
@@ -27,6 +28,19 @@ class ChallengeListDemo with ChangeNotifier {
 
   List<Challenge> get items {
     return [..._items]; //returns copy of _items into a new list
+  }
+
+  void addChallenge(Challenge add){
+    _items.add(add);
+    notifyListeners();
+  }
+
+  Challenge findModuleById(String challengetId){
+    return _items.firstWhere((element) => element.id == challengetId);
+  }
+
+  void notify(){
+    notifyListeners();
   }
 
   // List<Challenge> get favoriteItems{
