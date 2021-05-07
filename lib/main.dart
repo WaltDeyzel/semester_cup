@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:semester_cup/Classes/users_demo.dart';
-import 'Screens/challenge_list_screen.dart';
+
+import './Screens/spesific_challange_screen.dart';
 import 'Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
 import './Classes/challenges_demo.dart';
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             '/': (ctx) => HomeScreen(),
             ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
             LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
+            SpesificChallengeScreen.routeName: (ctx) => SpesificChallengeScreen(),
           },
         ));
   }
