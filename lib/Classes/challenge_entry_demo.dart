@@ -47,18 +47,6 @@ class ChallengeEntryListDemo with ChangeNotifier {
   ];
 
   List<ChallengeEntry> get entries {
-    return [..._entries]; //returns copy of _items into a new list
+    return [..._entries];
   }
-
-  // List<Challenge> get favoriteItems{
-  //   return _items.where((item) => item.isFavorite).toList();
-  // }
-
-  // Challenge findbyId(String id){
-  //   return _items.firstWhere((item) => item.id == id);
-  // }
-
-  // void addProduct() {
-  //   notifyListeners();
-  // }
 }
