@@ -20,6 +20,10 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Icon(Icons.offline_bolt),
+        title: Text("SemesterCup"), 
+        ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
