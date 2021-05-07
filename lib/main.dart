@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './Screens/spesific_challange_screen.dart';
-import 'Screens/home_screen.dart';
+import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
+import './Screens/challenge_list_screen.dart';
 import './Classes/challenges_demo.dart';
+import './Classes/users_demo.dart';
 
 void main() {
   runApp(MyApp());
