@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:semester_cup/Screens/spesific_challange_screen.dart';
-import '../Classes/challenges_demo.dart' show ChallengeListDemo;
-import '../Classes/challenge.dart';
+import 'package:semester_cup/Classes/users_demo.dart';
 
-class ChallengeList extends StatelessWidget {
-
-  void selectedChallengeRoute(Challenge challenge, BuildContext context){
-    print('works');
-    Navigator.of(context).pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
-  }
-  
+class UserLeaderboardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final challenges = Provider.of<ChallengeListDemo>(context).items;
+    //print(activeWallets[0].active);
+    //final mediaQ = MediaQuery.of(context);
+    final users = Provider.of<UserListDemo>(context).users;
+    //somehow sort the list of users
+    users.sort((a, b) => b.points.compareTo(a.points));
     return Container(
       color: Theme.of(context).primaryColor,
-      child: challenges.isEmpty ? Text('No Challenges'): Column(
+      //height: 350,
+      child: users.isEmpty
+          ? Text('No Users to display')
+          : Column(
               children: <Widget>[
-                ...challenges.map((element) {
+                ...users.map((element) {
                   return InkWell(
-                    onTap: (){selectedChallengeRoute(element, context);},
+                    // onTap: (){},
                     splashColor: Colors.blue,
                     borderRadius: BorderRadius.circular(15),
                     child: Card(
@@ -28,9 +27,12 @@ class ChallengeList extends StatelessWidget {
                       color: Theme.of(context).primaryColor,
                       child: ListTile(
                         title: Text(
-                          element.title,
+                          element.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, color: Colors.grey),
+                        ),
+                        trailing: Text(
+                          element.points.toString(),
                         ),
                       ),
                     ),
