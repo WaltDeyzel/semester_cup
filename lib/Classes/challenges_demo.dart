@@ -6,23 +6,23 @@ class ChallengeListDemo with ChangeNotifier {
   List<Challenge> _items = [
     Challenge(
       id: 'p1',
-      title: 'Red Shirt',
-      description: 'A red shirt - it is pretty red!',
+      title: 'Table mountain selfie',
+      description: 'Take a picture with our favorite mountain!',
     ),
     Challenge(
       id: 'p2',
-      title: 'Trousers',
-      description: 'A nice pair of trousers.',
+      title: 'Run away from a UCT pigeon',
+      description: 'a UCT requirement. when visiting campus for your tut/exam.',
     ),
     Challenge(
       id: 'p3',
-      title: 'Yellow Scarf',
-      description: 'Warm and cozy - exactly what you need for the winter.',
+      title: 'Help Lynn',
+      description: 'Cause Walt wont do it for me .',
     ),
     Challenge(
       id: 'p4',
-      title: 'A Pan',
-      description: 'Prepare any meal you want.',
+      title: 'Say "HECTIC" at the supermarket',
+      description: 'a UCT proverb.',
     ),
   ];
 
@@ -30,16 +30,16 @@ class ChallengeListDemo with ChangeNotifier {
     return [..._items]; //returns copy of _items into a new list
   }
 
-  void addChallenge(Challenge add){
+  void addChallenge(Challenge add) {
     _items.add(add);
     notifyListeners();
   }
 
-  Challenge findModuleById(String challengetId){
+  Challenge findModuleById(String challengetId) {
     return _items.firstWhere((element) => element.id == challengetId);
   }
 
-  void notify(){
+  void notify() {
     notifyListeners();
   }
 

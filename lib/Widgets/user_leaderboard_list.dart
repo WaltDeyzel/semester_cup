@@ -8,6 +8,8 @@ class UserLeaderboardList extends StatelessWidget {
     //print(activeWallets[0].active);
     //final mediaQ = MediaQuery.of(context);
     final users = Provider.of<UserListDemo>(context).users;
+    //somehow sort the list of users
+    users.sort((a, b) => b.points.compareTo(a.points));
     return Container(
       color: Theme.of(context).primaryColor,
       //height: 350,

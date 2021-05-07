@@ -7,19 +7,19 @@ class UserListDemo with ChangeNotifier {
       name: 'Lynn',
       studentNum: 'WYNLYN004',
       email: 'WYNLYN004@myuct.ac.za',
-      points: 100,
+      points: 143,
     ),
     User(
       name: 'Walt',
       studentNum: 'WALTINO003',
       email: 'WALTINO@myuct.ac.za',
-      points: 80,
+      points: 97,
     ),
     User(
-      name: 'Mentor Chels',
+      name: 'Mentor Chelsea',
       studentNum: 'CHEL001',
       email: 'CHEL@DEVSOC.COM',
-      points: 150,
+      points: 121,
     ),
   ];
 
