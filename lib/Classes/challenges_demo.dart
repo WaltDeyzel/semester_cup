@@ -7,19 +7,16 @@ class ChallengeListDemo with ChangeNotifier {
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
-      
     ),
     Challenge(
       id: 'p2',
       title: 'Trousers',
       description: 'A nice pair of trousers.',
-      
     ),
     Challenge(
       id: 'p3',
       title: 'Yellow Scarf',
       description: 'Warm and cozy - exactly what you need for the winter.',
-      
     ),
     Challenge(
       id: 'p4',
@@ -27,7 +24,7 @@ class ChallengeListDemo with ChangeNotifier {
       description: 'Prepare any meal you want.',
     ),
   ];
- 
+
   List<Challenge> get items {
     return [..._items]; //returns copy of _items into a new list
   }
