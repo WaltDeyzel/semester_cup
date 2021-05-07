@@ -7,7 +7,7 @@ import './user.dart';
 class ChallengeEntry {
   final String id;
   final Challenge challenge;
-  final Picture picture;
+  final String pictureURL;
   final DateTime dateTime;
   final int votes;
   final User user;
@@ -15,7 +15,7 @@ class ChallengeEntry {
   ChallengeEntry({
     @required this.id,
     @required this.challenge,
-    @required this.picture,
+    @required this.pictureURL,
     @required this.dateTime,
     @required this.votes,
     @required this.user,

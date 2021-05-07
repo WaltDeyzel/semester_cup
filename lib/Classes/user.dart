@@ -1,16 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:semester_cup/Classes/challenge.dart';
+import 'package:semester_cup/Classes/challengeEntry.dart';
 
 class User {
-  final String id;
   final String name;
-  final String studentNum;
+  final String studentNum; //acts as id
   final String email;
   final int points;
-  List<Challenge> completed = [];
+  List<ChallengeEntry> completed = [];
 
   User({
-    @required this.id,
     @required this.name,
     @required this.studentNum,
     @required this.email,
