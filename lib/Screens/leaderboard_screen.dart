@@ -14,6 +14,7 @@ class _LeaderboardScreen extends State<LeaderboardScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Text("LEADERBOARD"),
             UserLeaderboardList(),
           ],
         ),
