@@ -1,11 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import './challenge.dart';
 import './user.dart';
+import 'dart:io';
 
-class ChallengeEntry {
+class ChallengeEntry with ChangeNotifier{
   final String id;
   final Challenge challenge;
   final String pictureURL;
+  final File photo;
   final DateTime dateTime;
   final int votes;
   final User user;
@@ -13,9 +16,10 @@ class ChallengeEntry {
   ChallengeEntry({
     @required this.id,
     @required this.challenge,
-    @required this.pictureURL,
+    this.pictureURL,
     @required this.dateTime,
     @required this.votes,
     @required this.user,
+    this.photo
   });
 }
