@@ -120,7 +120,7 @@ class UserScreen extends StatelessWidget {
                   Center(
                       child: Text(
                     "LIST OF COMPLETED CHALLENGES:",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   )),
                   user.completed.isEmpty
                       ? Center(

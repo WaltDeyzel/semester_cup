@@ -7,6 +7,7 @@ class ChallengeListDemo with ChangeNotifier {
   List<Challenge> _items = [
     Challenge(
         id: 'p1',
+        // MOUNTAIN -------------------------------------------------
         title: 'Table mountain selfie',
         description: 'Take a picture with our favorite mountain!',
         submits: [
@@ -18,7 +19,7 @@ class ChallengeListDemo with ChangeNotifier {
               description: 'Take a selfie with you and our favorite mountain!',
             ),
             pictureURL:
-                'https://www.tablemountain.net/uploads/files/header_home.jpg',
+                'https://photos.smugmug.com/South-Africa-2017/Cape-Town-Audreys/i-wQnP4j9/0/36268230/L/Cape-Town-5-L.jpg',
             dateTime: DateTime.parse("1969-07-20 20:19:04Z"), // 8:19pm
             votes: 8,
             user: User(
@@ -36,7 +37,7 @@ class ChallengeListDemo with ChangeNotifier {
               description: 'Take a selfie with you and our favorite mountain!',
             ),
             pictureURL:
-                'https://cdn.getyourguide.com/img/location/546c82dc2cb7e.jpeg/88.jpg',
+                'https://media-exp1.licdn.com/dms/image/C4D22AQFwZrtvhHKfKg/feedshare-shrink_800/0/1605704066137?e=1621468800&v=beta&t=ArKJUpRjwa26XeHNyw0iJ0f4GbHaNiKhmPIhg4ziwY4',
             dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
             votes: 10,
             user: User(
@@ -67,24 +68,55 @@ class ChallengeListDemo with ChangeNotifier {
         ]),
     Challenge(
         id: 'p2',
-        title: 'Run away from a UCT pigeon',
+        title: 'Run from a UCT pigeon',
+        // PIGION ------------------------------------------------- 
         description:
             'a UCT requirement. when visiting campus for your tut/exam.',
-        submits: []),
+        submits: [
+          ChallengeEntry(
+            id: 'entry2',
+            challenge: Challenge(
+              id: 'c2',
+              title: 'Pigeons',
+              description: 'Take a selfie with you and our favorite mountain!',
+            ),
+            pictureURL: 'https://i.ytimg.com/vi/nSXZcPfgnvE/hqdefault.jpg',
+            dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
+            votes: 87,
+            user: User(
+              name: 'Lynn',
+              studentNum: 'WYNLYN004',
+              email: 'WYNLYN004@myuct.ac.za',
+              points: 100,
+            ),
+          ),
+          ChallengeEntry(
+            id: 'entry2',
+            challenge: Challenge(
+              id: 'c2',
+              title: 'Pigeons',
+              description: 'Take a selfie with you and our favorite mountain!',
+            ),
+            pictureURL: 'https://i.redd.it/pv2td453rzn41.jpg',
+            dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
+            votes: 23,
+            user: User(
+              name: 'Lynn',
+              studentNum: 'WYNLYN004',
+              email: 'WYNLYN004@myuct.ac.za',
+              points: 100,
+            ),
+          ),
+        ]),
     Challenge(
-        id: 'p5',
-        title: 'Get coffee from a vending machine',
-        description: 'with to much sugar.',
+        id: 'p4',
+        title: 'Attend a hackathon',
+        description: 'yay for devsoc!',
         submits: []),
     Challenge(
         id: 'p6',
-        title: 'Feed a starling',
+        title: 'Sleep in Library',
         description: 'the UCT birdies.',
-        submits: []),
-    Challenge(
-        id: 'p4',
-        title: 'Blame Eduroam for all your problems',
-        description: 'the standard.',
         submits: []),
     Challenge(
         id: 'p4',
@@ -93,13 +125,23 @@ class ChallengeListDemo with ChangeNotifier {
         submits: []),
     Challenge(
         id: 'p4',
-        title: 'Attend a hackathon',
-        description: 'yay for devsoc!',
+        title: 'Get a UNI hoodie',
+        description: 'bragging rights.',
+        submits: []),
+    Challenge(
+        id: 'p6',
+        title: '2X Lecture videos.',
+        description: 'Faste Pase',
         submits: []),
     Challenge(
         id: 'p4',
-        title: 'Get a UCT hoodie',
-        description: 'bragging rights.',
+        title: 'Start studying on day of test.',
+        description: 'the standard.',
+        submits: []),
+    Challenge(
+        id: 'p5',
+        title: 'Get coffee from a vending machine',
+        description: 'with to much sugar.',
         submits: []),
   ];
 
@@ -108,7 +150,7 @@ class ChallengeListDemo with ChangeNotifier {
   }
 
   void addChallenge(Challenge add) {
-    _items.add(add);
+    _items.insert(0, add);
     notifyListeners();
   }
 

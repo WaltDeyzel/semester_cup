@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Screens/user_screen.dart';
 
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
@@ -23,11 +22,14 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.emoji_events_outlined),
-        title: Text("SemesterCup"),
+        leading: Icon(Icons.emoji_events, color: Colors.yellow,),
+        title: Text("SemesterCup",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),),
       ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Colors.yellow,
+        unselectedItemColor: Colors.black,
         onTap: _selectPage,
         currentIndex: _pageIndex,
         items: [

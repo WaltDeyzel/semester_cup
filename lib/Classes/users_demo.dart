@@ -4,7 +4,7 @@ import './user.dart';
 class UserListDemo with ChangeNotifier {
   List<User> _users = [
     User(
-      name: 'LynnW',
+      name: 'Lynn',
       studentNum: 'WYNLYN004',
       email: 'WYNLYN004@myuct.ac.za',
       points: 143,

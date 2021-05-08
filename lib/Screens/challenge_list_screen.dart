@@ -37,7 +37,7 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
               child: Center(
                   child: Text(
                 "LIST OF AVAILABLE CHALLENGES",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               )),
             ),
             ChallengeList(),

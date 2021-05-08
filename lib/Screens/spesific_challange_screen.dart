@@ -27,7 +27,7 @@ class _SpesificChallengeScreen extends State<SpesificChallengeScreen> {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          title: Text(selectedChallenge.title),
+          title: Text(selectedChallenge.title,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),),
         ),
         body: ChallengeEntryGrid(entries),
         floatingActionButton: FloatingActionButton(

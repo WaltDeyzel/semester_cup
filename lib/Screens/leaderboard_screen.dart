@@ -20,7 +20,7 @@ class _LeaderboardScreen extends State<LeaderboardScreen> {
               child: Center(
                   child: Text(
                 "LEADERBOARD",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               )),
             ),
             UserLeaderboardList(),
