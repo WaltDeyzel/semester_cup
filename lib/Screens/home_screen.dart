@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semester_cup/Screens/user_screen.dart';
 
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
@@ -15,24 +16,25 @@ class _HomeScreen extends State<HomeScreen> {
     setState(() {
       _pageIndex = index;
     });
+    //how to pass user
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.offline_bolt),
-        title: Text("SemesterCup"), 
-        ),
+        leading: Icon(Icons.emoji_events_outlined),
+        title: Text("SemesterCup"),
+      ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         currentIndex: _pageIndex,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit_rounded), label: ('Walt')),
+              icon: Icon(Icons.all_inbox), label: ('CHALLENGES')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.ac_unit_rounded), label: ('Walt'))
+              icon: Icon(Icons.emoji_events), label: ('LEADERBOARD')),
         ],
       ),
     );

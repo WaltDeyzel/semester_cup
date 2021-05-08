@@ -45,7 +45,8 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.access_alarm),
+        backgroundColor: Colors.white,
+        child: Icon(Icons.drive_file_rename_outline),
         onPressed: () => {_addNewChallenge(context)},
       ),
     );

@@ -38,9 +38,6 @@ import '../Classes/user.dart';
 class UserScreen extends StatelessWidget {
   static const routeName = '/user-screen';
 
-  // class LynnsWidget
-  //wrap in container and take args
-
   @override
   Widget build(BuildContext context) {
     User user = ModalRoute.of(context).settings.arguments as User;
