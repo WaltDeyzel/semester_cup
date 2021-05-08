@@ -10,8 +10,9 @@ class ChallengeEntry with ChangeNotifier{
   final String pictureURL;
   final File photo;
   final DateTime dateTime;
-  final int votes;
+  int votes;
   final User user;
+  bool liked = false;
 
   ChallengeEntry({
     @required this.id,

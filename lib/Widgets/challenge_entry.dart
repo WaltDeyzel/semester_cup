@@ -24,6 +24,15 @@ class EntryItemTile extends StatelessWidget {
             entry.votes.toString(),
             textAlign: TextAlign.center,
           ),
+          trailing: IconButton(
+            icon: !entry.liked ?Icon(Icons.favorite_border_outlined) : Icon(Icons.favorite),
+            color: Theme.of(context).accentColor,
+            onPressed: () {
+              if(!entry.liked)entry.votes += 1;
+              entry.liked = true;
+              
+            },
+          ),
         ),
       ),
     );
