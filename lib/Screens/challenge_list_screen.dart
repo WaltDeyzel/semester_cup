@@ -30,6 +30,16 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(20),
+              color: Color.fromRGBO(141, 208, 252, 0.8),
+              child: Center(
+                  child: Text(
+                "LIST OF AVAILABLE CHALLENGES",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )),
+            ),
             ChallengeList(),
           ],
         ),

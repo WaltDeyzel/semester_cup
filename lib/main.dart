@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'SemesterCup',
           theme: ThemeData(
-            primarySwatch: Colors.yellow,
+            primarySwatch: Colors.lightBlue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           routes: {
