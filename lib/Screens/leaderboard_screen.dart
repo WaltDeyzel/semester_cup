@@ -14,7 +14,15 @@ class _LeaderboardScreen extends State<LeaderboardScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Text("LEADERBOARD"),
+            Container(
+              color: Color.fromRGBO(141, 208, 252, 0.8),
+              padding: EdgeInsets.all(20),
+              child: Center(
+                  child: Text(
+                "LEADERBOARD",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              )),
+            ),
             UserLeaderboardList(),
           ],
         ),

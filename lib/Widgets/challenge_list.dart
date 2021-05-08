@@ -5,32 +5,37 @@ import '../Classes/challenges_demo.dart' show ChallengeListDemo;
 import '../Classes/challenge.dart';
 
 class ChallengeList extends StatelessWidget {
-
-  void selectedChallengeRoute(Challenge challenge, BuildContext context){
+  void selectedChallengeRoute(Challenge challenge, BuildContext context) {
     print('works');
-    Navigator.of(context).pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
+    Navigator.of(context)
+        .pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final challenges = Provider.of<ChallengeListDemo>(context).items;
     return Container(
+      padding: EdgeInsets.all(10),
       color: Theme.of(context).primaryColor,
-      child: challenges.isEmpty ? Text('No Challenges'): Column(
+      child: challenges.isEmpty
+          ? Text('No Challenges')
+          : Column(
               children: <Widget>[
                 ...challenges.map((element) {
                   return InkWell(
-                    onTap: (){selectedChallengeRoute(element, context);},
+                    onTap: () {
+                      selectedChallengeRoute(element, context);
+                    },
                     splashColor: Colors.blue,
                     borderRadius: BorderRadius.circular(15),
                     child: Card(
+                      color: Color.fromRGBO(141, 208, 252, 0.8),
                       elevation: 1,
-                      color: Theme.of(context).primaryColor,
                       child: ListTile(
                         title: Text(
                           element.title,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey),
+                              fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ),
                     ),

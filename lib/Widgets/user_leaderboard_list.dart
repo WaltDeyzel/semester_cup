@@ -29,12 +29,13 @@ class UserLeaderboardList extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     child: Card(
                       elevation: 1,
-                      color: Theme.of(context).primaryColor,
+                      color: Color.fromRGBO(
+                          141, 208, 252, 0.8), //Theme.of(context).primaryColor,
                       child: ListTile(
                         title: Text(
                           element.name,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.grey),
+                              fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                         trailing: Text(
                           element.points.toString(),
