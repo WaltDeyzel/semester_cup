@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:semester_cup/Classes/user.dart';
 import 'package:semester_cup/Classes/users_demo.dart';
+import 'package:semester_cup/Screens/user_screen.dart';
 
 class UserLeaderboardList extends StatelessWidget {
+  void selectedUserRoute(User user, BuildContext context) {
+    Navigator.of(context).pushNamed(UserScreen.routeName, arguments: user);
+  }
+
   @override
   Widget build(BuildContext context) {
-    //print(activeWallets[0].active);
-    //final mediaQ = MediaQuery.of(context);
     final users = Provider.of<UserListDemo>(context).users;
-    //somehow sort the list of users
     users.sort((a, b) => b.points.compareTo(a.points));
     return Container(
       color: Theme.of(context).primaryColor,
@@ -19,7 +22,9 @@ class UserLeaderboardList extends StatelessWidget {
               children: <Widget>[
                 ...users.map((element) {
                   return InkWell(
-                    // onTap: (){},
+                    onTap: () {
+                      selectedUserRoute(element, context);
+                    },
                     splashColor: Colors.blue,
                     borderRadius: BorderRadius.circular(15),
                     child: Card(
