@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './Classes/challenge.dart';
-import 'package:semester_cup/Screens/user_screen.dart';
 
+import './Screens/user_screen.dart';
 import './Screens/spesific_challange_screen.dart';
 import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
+
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
 

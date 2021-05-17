@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Widgets/user_leaderboard_list.dart';
+import '../Widgets/user_leaderboard_list.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   static const routeName = "/leaderboard_screen";

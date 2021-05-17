@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:semester_cup/Classes/challengeEntry.dart';
+import '../Classes/challengeEntry.dart';
 
 class User {
   final String name;

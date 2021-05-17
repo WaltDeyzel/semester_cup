@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:semester_cup/Screens/spesific_challange_screen.dart';
-import '../Classes/challenges_demo.dart' show ChallengeListDemo;
+import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
 
 class ChallengeList extends StatelessWidget {

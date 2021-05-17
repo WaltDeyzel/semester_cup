@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Classes/challengeEntry.dart';
-
+import '../Classes/challengeEntry.dart';
 import './user.dart';
-
-import './challenge.dart';
 
 class ChallengeEntryListDemo with ChangeNotifier {
   //list of challenge entries
