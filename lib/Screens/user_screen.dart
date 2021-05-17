@@ -138,8 +138,8 @@ class UserScreen extends StatelessWidget {
                                   elevation: 1,
                                   color: Theme.of(context).primaryColor,
                                   child: ListTile(
-                                    title: Text(
-                                      element.challenge.title,
+                                    title: Text('ss',
+                                      //element.challenge.title,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey),

@@ -6,7 +6,6 @@ import '../Classes/challenge.dart';
 
 class ChallengeList extends StatelessWidget {
   void selectedChallengeRoute(Challenge challenge, BuildContext context) {
-    print('works');
     Navigator.of(context)
         .pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
   }
@@ -35,7 +34,7 @@ class ChallengeList extends StatelessWidget {
                         title: Text(
                           element.title,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.black),
+                              fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                     ),

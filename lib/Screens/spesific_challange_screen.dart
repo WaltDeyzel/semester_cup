@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import '../Widgets/add_entry.dart';
 import '../Classes/challengeEntry.dart';
 import '../Classes/challenge.dart';
 import '../Widgets/challenge_entry_grid_view.dart';
@@ -13,26 +14,48 @@ class SpesificChallengeScreen extends StatefulWidget {
 
 class _SpesificChallengeScreen extends State<SpesificChallengeScreen> {
   File _storedImage;
-  Future<void> _addChallengeEntry() async {
+  Future<void> _addChallengeEntry(Challenge selectedChallenge) async {
     final imageFile = await ImagePicker.platform
-        .pickImage(source: ImageSource.camera, maxWidth: 600);
+        .pickImage(source: ImageSource.gallery, maxWidth: 600, maxHeight: 600);
+    _storedImage = File(imageFile.path);
+    showModalBottomSheet(
+      context: context,
+      builder: (btcx) {
+        return GestureDetector(
+          onTap: () {},
+          // Widget for adding a challange
+          child: AddEntry(selectedChallenge, _storedImage),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+      
+    );
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    // Challenge challenge = ModalRoute.of(context).settings.arguments as Challenge;
+    //Selected Challange
     Challenge selectedChallenge =
         ModalRoute.of(context).settings.arguments as Challenge;
+    // All entries of selected challange
     List<ChallengeEntry> entries = selectedChallenge.items;
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
-          title: Text(selectedChallenge.title,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),),
+          title: Text(
+            selectedChallenge.title,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          ),
         ),
-        body: ChallengeEntryGrid(entries),
+        body: _storedImage == null
+            // Display all entries in a grid format
+            ? ChallengeEntryGrid(entries)
+            : Image.file(_storedImage),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add_a_photo),
-          onPressed: _addChallengeEntry,
+          onPressed: (){_addChallengeEntry(selectedChallenge);},
         ));
   }
 }

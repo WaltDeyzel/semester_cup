@@ -10,11 +10,6 @@ class ChallengeEntryListDemo with ChangeNotifier {
   List<ChallengeEntry> _entries = [
     ChallengeEntry(
       id: 'entry0',
-      challenge: Challenge(
-        id: 'c0',
-        title: 'table mountain',
-        description: 'Take a selfie with you and our favorite mountain!',
-      ),
       pictureURL:
           'https://cdn.getyourguide.com/img/location/546c82dc2cb7e.jpeg/88.jpg',
       dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
@@ -29,11 +24,6 @@ class ChallengeEntryListDemo with ChangeNotifier {
 //////////
     ChallengeEntry(
       id: 'entry1',
-      challenge: Challenge(
-        id: 'c0',
-        title: 'table mountain',
-        description: 'Take a selfie with you and our favorite mountain!',
-      ),
       pictureURL: 'https://www.tablemountain.net/uploads/files/header_home.jpg',
       dateTime: DateTime.parse("1969-07-20 20:19:04Z"), // 8:19pm
       votes: 8,

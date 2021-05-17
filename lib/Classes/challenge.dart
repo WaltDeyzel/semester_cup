@@ -18,5 +18,9 @@ class Challenge with ChangeNotifier{
   List<ChallengeEntry> get items {
     return [...submits]; //returns copy of _items into a new list
   }
+
+  void addEntry(ChallengeEntry entry){
+    submits.add(entry);
+  }
 }
 

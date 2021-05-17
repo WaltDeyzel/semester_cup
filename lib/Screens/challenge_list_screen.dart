@@ -17,6 +17,7 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
       builder: (btcx) {
         return GestureDetector(
           onTap: () {},
+          // Widget for adding a challange
           child: AddChallenge(),
           behavior: HitTestBehavior.opaque,
         );
@@ -30,6 +31,7 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            //Container is just for Text "LIST OF AVAILABLE CHALLENGES."
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(20),
@@ -40,10 +42,12 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               )),
             ),
+            // Display all the available challanges. 
             ChallengeList(),
           ],
         ),
       ),
+      // Button allows user to add a challange. 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         child: Icon(Icons.drive_file_rename_outline),
