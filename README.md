@@ -1,6 +1,12 @@
 # semester_cup
 
-A new Flutter project.
+A new Flutter project. A mobile application by students for students. 
+Create, share and complete challenges with your friends anywhere in South Africa. Bring the university experience to your study desk at home! 
+
+Simply download SemesterCup and compete in open challenges and earn points! Create challenges for your friends to complete and vote for your favourite submission.
+
+Remember stay safe and stay happy!
+
 
 ## Getting Started
 
