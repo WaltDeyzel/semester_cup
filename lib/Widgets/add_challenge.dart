@@ -51,7 +51,7 @@ class _AddChallenge extends State<AddChallenge> {
                 return null;
               },
               onSaved: (newValue) {
-                _newChallenge = Challenge(id: 'id', title: _newChallenge.title, description: newValue);
+                _newChallenge = Challenge(id: 'id', title: _newChallenge.title, description: newValue, submits: []);
               },
               onFieldSubmitted: (_) {
                 _saveForm(challenges);
