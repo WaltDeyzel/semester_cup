@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Classes/challenge.dart';
 
 class ChallangeTile extends StatefulWidget {
   final selectedChallengeRoute;
@@ -11,7 +12,7 @@ class ChallangeTile extends StatefulWidget {
 
 class _ChallangeTile extends State<ChallangeTile> {
   final _selectedChallengeRoute;
-  final _challange;
+  final Challenge _challange;
   _ChallangeTile(this._selectedChallengeRoute, this._challange);
   bool info = false;
   @override
@@ -35,6 +36,7 @@ class _ChallangeTile extends State<ChallangeTile> {
             child: Center(
               child: info == false
                   ? Card(
+                    color: Colors.white54,
                       child: Text(_challange.title.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -60,11 +62,34 @@ class _ChallangeTile extends State<ChallangeTile> {
                 });
               }),
           Container(
-            margin: EdgeInsets.only(top: 285),
-            color: Color.fromRGBO(255, 255, 255, 0.75),
+            margin: EdgeInsets.only(top: 260),
+            // color: Color.fromRGBO(255, 255, 255, 0.75),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [Text('Entries: 100'), Text('Prize: R100')],
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                    color: Colors.grey,
+                    child: Container(
+                      width: 50,
+                      child: Row(
+                        children: [
+                          Icon(Icons.add_box_outlined),
+                          Text(_challange.getNoSubmist().toString()),
+                        ],
+                      ),
+                    )),
+                Card(
+                    color: Colors.grey,
+                    child: Container(
+                      width: 50,
+                      child: Row(
+                        children: [
+                          Icon(Icons.emoji_events_rounded),
+                          Text('100'),
+                        ],
+                      ),
+                    ))
+              ],
             ),
           ),
         ],

@@ -24,5 +24,9 @@ class Challenge with ChangeNotifier{
   void addEntry(ChallengeEntry entry){
     submits.add(entry);
   }
+
+  int getNoSubmist(){
+    return submits.length;
+  }
 }
 
