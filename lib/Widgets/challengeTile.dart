@@ -26,17 +26,20 @@ class _ChallangeTile extends State<ChallangeTile> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(
-                    'https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg'),
+                image: _challange.coverPhoto == null
+                    ? NetworkImage(
+                        'https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg')
+                    : FileImage(_challange.coverPhoto),
               ),
             ),
             child: Center(
               child: info == false
-                  ? Text(_challange.title.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                          color: Colors.black))
+                  ? Card(
+                      child: Text(_challange.title.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                              color: Colors.black)))
                   : Card(
                       margin: EdgeInsets.all(15),
                       child: Text(
