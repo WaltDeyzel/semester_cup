@@ -18,7 +18,7 @@ class ChallengeEntry with ChangeNotifier{
     this.title,
     this.pictureURL,
     this.dateTime,
-    this.votes,
+    @required this.votes,
     this.user,
     this.photo
   });

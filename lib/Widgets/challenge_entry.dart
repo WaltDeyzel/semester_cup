@@ -47,6 +47,7 @@ class _EntryItemTile extends State<EntryItemTile> {
             color: Theme.of(context).accentColor,
             onPressed: () {
               setState(() {
+                print(entry.votes);
                 if (!entry.liked) {
                   entry.votes += 1;
                   entry.liked = true;

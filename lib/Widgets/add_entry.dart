@@ -20,7 +20,7 @@ class _AddEntry extends State<AddEntry> {
   _AddEntry(this._selectedChallenge, this._photo);
   final _form = GlobalKey<FormState>();
   
-  var _newChallenge = ChallengeEntry(id: '');
+  var _newChallenge = ChallengeEntry(id: '', votes: 0, title: '', photo: null);
 
   void _saveForm(Challenge selectedChallenge) {
     final isValid = _form.currentState.validate();
@@ -47,7 +47,7 @@ class _AddEntry extends State<AddEntry> {
                 return null;
               },
               onSaved: (newValue) {
-                _newChallenge = ChallengeEntry(id: 'qwerty', title: newValue, photo: _photo);
+                _newChallenge = ChallengeEntry(id: 'qwerty', title: newValue, photo: _photo, votes: 0);
               },
               onFieldSubmitted: (_) {
                 _saveForm(_selectedChallenge);
