@@ -47,10 +47,7 @@ class _ChallangeTile extends State<ChallangeTile> {
                         padding: EdgeInsets.all(5),
                         child: Text(
                           _challange.title.toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Colors.black),
+                          style: Theme.of(context).textTheme.headline2,
                         ),
                       ),
                     )
@@ -62,10 +59,7 @@ class _ChallangeTile extends State<ChallangeTile> {
                         padding: EdgeInsets.all(5),
                         child: Text(
                           _challange.description,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.black),
+                          style: Theme.of(context).textTheme.headline3,
                         ),
                       ),
                     ),
@@ -79,7 +73,7 @@ class _ChallangeTile extends State<ChallangeTile> {
             child: IconButton(
                 icon: Icon(
                   Icons.info_outline,
-                  color: Colors.white,
+                  color: cardsColour,
                 ),
                 onPressed: () {
                   setState(() {

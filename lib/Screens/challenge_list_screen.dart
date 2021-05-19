@@ -21,7 +21,7 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(20),
-              color: Color.fromRGBO(141, 208, 252, 0.8),
+              color: Theme.of(context).accentColor,
               child: Center(
                   child: Text(
                 "LIST OF AVAILABLE CHALLENGES",

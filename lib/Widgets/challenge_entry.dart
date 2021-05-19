@@ -24,7 +24,7 @@ class _EntryItemTile extends State<EntryItemTile> {
           },
           //URL will be temporary I think.
           child: entry.photo != null
-              ? Image.file(entry.photo, fit: BoxFit.cover)
+              ? Image.file(entry.photo, fit: BoxFit.fill)
               : Image.network(entry.pictureURL),
         ),
         footer: GridTileBar(

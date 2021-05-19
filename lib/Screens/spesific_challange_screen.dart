@@ -48,8 +48,7 @@ class _SpesificChallengeScreen extends State<SpesificChallengeScreen> {
         appBar: AppBar(
           title: Text(
             selectedChallenge.title,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+            style: Theme.of(context).textTheme.headline4,
           ),
         ),
         body: _storedImage == null
@@ -57,8 +56,9 @@ class _SpesificChallengeScreen extends State<SpesificChallengeScreen> {
             ? ChallengeEntryGrid(entries)
             : Image.file(_storedImage),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add_a_photo),
+          backgroundColor: Colors.white,
+          child: Icon(Icons.add_a_photo,),
           onPressed: (){_addChallengeEntry(selectedChallenge);},
-        ));
+        ),);
   }
 }

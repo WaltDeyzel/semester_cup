@@ -30,15 +30,35 @@ class MyApp extends StatelessWidget {
         ],
         child: MaterialApp(
           title: 'SemesterCup',
+          // THEME OF APP
           theme: ThemeData(
-            primarySwatch: Colors.lightBlue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
+            primarySwatch: Colors.teal,
+            accentColor: Colors.white,
+            fontFamily: 'Georgia',
+            textTheme: TextTheme(
+              // App bar title
+              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
+              // Challenge title
+              headline2: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 24,
+                  color: Colors.black),
+              // Challenge description.
+              headline3: TextStyle(
+                  fontWeight: FontWeight.w100,
+                  fontSize: 16,
+                  color: Colors.black),
+              // Spesific challenge page app bar title
+              headline4: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)
+            ),
           ),
           routes: {
             '/': (ctx) => HomeScreen(),
             ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
             LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
-            SpesificChallengeScreen.routeName: (ctx) =>SpesificChallengeScreen(),
+            SpesificChallengeScreen.routeName: (ctx) =>
+                SpesificChallengeScreen(),
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
             UserScreen.routeName: (ctx) => UserScreen(),
           },
