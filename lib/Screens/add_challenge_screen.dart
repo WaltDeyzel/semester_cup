@@ -74,14 +74,8 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   Widget build(BuildContext context) {
     final challenges = Provider.of<ChallengeListDemo>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Create Challenge", style: TextStyle(color: Theme.of(context).primaryColor),),
-        backgroundColor: Colors.white,
-        shadowColor: Colors.white,
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-      ),
       body: Container(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 45),
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: Form(
@@ -199,6 +193,19 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                               fontWeight: FontWeight.bold, fontSize: 24)),
                       onPressed: () {
                         _submitData(challenges);
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 60,
+                    child: TextButton(
+                      child: Text(
+                        'cancel',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();;
                       },
                     ),
                   ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:semester_cup/Classes/challengeEntry.dart';
 
-import '../Classes/challenges_demo.dart';
+import '../Classes/challengeEntry.dart';
 import '../Classes/challenge.dart';
 
 // Creating a challange form
@@ -56,17 +54,8 @@ class _AddEntryScreen extends State<AddEntryScreen> {
   Widget build(BuildContext context) {
     final challenge = ModalRoute.of(context).settings.arguments as Challenge;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Your entry",
-          style: TextStyle(color: Theme.of(context).primaryColor),
-        ),
-        backgroundColor: Colors.white,
-        shadowColor: Colors.white,
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-      ),
       body: Container(
-          padding: const EdgeInsets.only(top: 15),
+          padding: const EdgeInsets.only(top: 45),
           child: Padding(
             padding: EdgeInsets.only(left: 10, right: 10),
             child: Form(
@@ -147,6 +136,19 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                       ),
                       onPressed: () {
                         _submitData(challenge);
+                      },
+                    ),
+                  ),
+                  Container(
+                    height: 60,
+                    child: TextButton(
+                      child: Text(
+                        'cancel',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();;
                       },
                     ),
                   ),
