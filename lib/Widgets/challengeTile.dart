@@ -14,20 +14,25 @@ class _ChallangeTile extends State<ChallangeTile> {
   final _selectedChallengeRoute;
   final Challenge _challange;
   _ChallangeTile(this._selectedChallengeRoute, this._challange);
+
   bool info = false;
+  static const Color cardsColour = Colors.white;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         _selectedChallengeRoute(_challange, context);
       },
+      // STACK EVERYTHING ON THE IMAGE 
       child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
+              border: Border.all(color: Colors.black, width: 0.5),
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: _challange.coverPhoto == null
+                // NETWORK IMAGE IS TEMP. WILL REPLACE WITH DEFAULT IMAGE IF CHALLENGE IMAGE DOES NOT LOAD
                     ? NetworkImage(
                         'https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg')
                     : FileImage(_challange.coverPhoto),
@@ -35,63 +40,90 @@ class _ChallangeTile extends State<ChallangeTile> {
             ),
             child: Center(
               child: info == false
+                  // TITLE 
                   ? Card(
-                    color: Colors.white54,
-                      child: Text(_challange.title.toString(),
+                      color: cardsColour,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                          _challange.title.toString(),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
-                              color: Colors.black)))
+                              color: Colors.black),
+                        ),
+                      ),
+                    )
+                  // DESCRIPTION
                   : Card(
+                      color: cardsColour,
                       margin: EdgeInsets.all(15),
-                      child: Text(
-                        _challange.description,
-                        style: TextStyle(fontSize: 16),
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                          _challange.description,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black),
+                        ),
                       ),
                     ),
             ),
             height: 300,
             width: double.infinity,
           ),
-          IconButton(
-              icon: Icon(Icons.info_outline),
-              onPressed: () {
-                setState(() {
-                  print(info);
-                  info = !info;
-                });
-              }),
-          Container(
-            margin: EdgeInsets.only(top: 260),
-            // color: Color.fromRGBO(255, 255, 255, 0.75),
+          // ICON BUTTON TO TOGGLE IF DESCRIPTION OR TITLE IS SHOWN
+          Positioned(
+            right: 0,
+            child: IconButton(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    print(info);
+                    info = !info;
+                  });
+                }),
+          ),
+          // AMOUNT OF ENTRIES, VOTES, DEADLINE, PRIZES ETC TYPE OF INFORMATION DISPLAYED AT BOTTOM OF IGAME.
+          Positioned(
+            bottom: 5,
+            left: 0,
+            right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Card(
-                    color: Colors.grey,
+                    color: cardsColour,
                     child: Container(
                       width: 50,
                       child: Row(
                         children: [
                           Icon(Icons.add_box_outlined),
-                          Text(_challange.getNoSubmist().toString()),
+                          Text(
+                            _challange.getNoSubmist().toString(),
+                          ),
                         ],
                       ),
                     )),
                 Card(
-                    color: Colors.grey,
-                    child: Container(
-                      width: 50,
-                      child: Row(
-                        children: [
-                          Icon(Icons.emoji_events_rounded),
-                          Text('100'),
-                        ],
-                      ),
-                    ))
+                  color: cardsColour,
+                  child: Container(
+                    width: 50,
+                    child: Row(
+                      children: [
+                        Icon(Icons.emoji_events_outlined),
+                        Text('100'),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
+          )
         ],
       ),
     );
