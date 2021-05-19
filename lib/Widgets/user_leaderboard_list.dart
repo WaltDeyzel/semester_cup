@@ -16,7 +16,6 @@ class UserLeaderboardList extends StatelessWidget {
     users.sort((a, b) => b.points.compareTo(a.points));
     return Container(
       color: Theme.of(context).primaryColor,
-      //height: 350,
       child: users.isEmpty
           ? Text('No Users to display')
           : Column(
@@ -26,12 +25,10 @@ class UserLeaderboardList extends StatelessWidget {
                     onTap: () {
                       selectedUserRoute(element, context);
                     },
-                    splashColor: Colors.blue,
                     borderRadius: BorderRadius.circular(15),
                     child: Card(
                       elevation: 1,
-                      color: Color.fromRGBO(
-                          141, 208, 252, 0.8), //Theme.of(context).primaryColor,
+                      color: Theme.of(context).accentColor, 
                       child: ListTile(
                         title: Text(
                           element.name,

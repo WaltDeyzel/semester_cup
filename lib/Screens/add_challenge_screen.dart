@@ -75,7 +75,10 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
     final challenges = Provider.of<ChallengeListDemo>(context);
     return Scaffold(
       appBar: AppBar(
+        title: Text("Create Challenge", style: TextStyle(color: Theme.of(context).primaryColor),),
         backgroundColor: Colors.white,
+        shadowColor: Colors.white,
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
       ),
       body: Container(
           padding: const EdgeInsets.only(top: 15),
@@ -93,7 +96,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                       },
                       child: CircleAvatar(
                         radius: 55,
-                        backgroundColor: const Color(0xffFDCF09),
+                        backgroundColor: Theme.of(context).primaryColor,
                         child: _coverPhoto != null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(50),

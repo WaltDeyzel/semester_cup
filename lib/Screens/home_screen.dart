@@ -23,12 +23,13 @@ class _HomeScreen extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.emoji_events, color: Colors.yellow,),
-        title: Text("SemesterCup",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),),
+        title: Text("SemesterCup",style: Theme.of(context).textTheme.headline1,),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        selectedItemColor: Colors.yellow,
+        backgroundColor: Colors.white,
+        selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Colors.black,
         onTap: _selectPage,
         currentIndex: _pageIndex,

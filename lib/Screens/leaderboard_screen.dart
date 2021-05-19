@@ -15,13 +15,14 @@ class _LeaderboardScreen extends State<LeaderboardScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              color: Color.fromRGBO(141, 208, 252, 0.8),
+              color: Theme.of(context).accentColor,
               padding: EdgeInsets.all(20),
               child: Center(
-                  child: Text(
-                "LEADERBOARD",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              )),
+                child: Text(
+                  "LEADERBOARD",
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+              ),
             ),
             UserLeaderboardList(),
           ],
