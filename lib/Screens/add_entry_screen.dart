@@ -19,7 +19,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
   String dateText = 'Date deadline';
 
   // THE CHALLENGE THAT WILL BE CREATED. BLANK FOR NOW
-  var _newChallengeEntry = ChallengeEntry(id: '', votes: 0);
+  var _newChallengeEntry = ChallengeEntry(id: '', title: '', votes: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
   void _submitData(Challenge selectedChallenge) {
@@ -102,7 +102,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                   // TITLE SELECTION FOR CHALLENGE
                   TextFormField(
                     maxLines: 1,
-                    maxLength: 15,
+                    maxLength: 25,
                     decoration: InputDecoration(
                       labelText: "Title",
                       fillColor: Colors.white,
@@ -119,7 +119,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                     onSaved: (newValue) {
                       _newChallengeEntry = ChallengeEntry(
                           id: _newChallengeEntry.id,
-                          title: _newChallengeEntry.title,
+                          title: newValue,
                           photo: _coverPhoto,
                           votes: 0);
                     },
@@ -148,7 +148,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                             fontWeight: FontWeight.bold, fontSize: 14, color: Colors.grey),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();;
+                        Navigator.of(context).pop();
                       },
                     ),
                   ),

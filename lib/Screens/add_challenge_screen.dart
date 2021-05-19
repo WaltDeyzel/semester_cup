@@ -48,7 +48,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   // ALLOWS USER TO SELCET PICTURE FROM GALLERY. CHANGING GALLERY TO CAMERA ALLOWS PHOTO TO BE TAKEN DIRECTLY
   Future<void> _imgFromCamera() async {
     final image =
-        await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+        await picker.getImage(source: ImageSource.gallery, imageQuality: 50, maxWidth: 480);
     setState(() {
       _coverPhoto = File(image.path);
     });

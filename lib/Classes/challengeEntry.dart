@@ -15,7 +15,7 @@ class ChallengeEntry with ChangeNotifier{
 
   ChallengeEntry({
     @required this.id,
-    this.title,
+    @required this.title,
     this.pictureURL,
     this.dateTime,
     @required this.votes,

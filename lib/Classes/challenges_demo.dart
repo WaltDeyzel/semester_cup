@@ -15,6 +15,7 @@ class ChallengeListDemo with ChangeNotifier {
         submits: [
           ChallengeEntry(
             id: 'entry1',
+            title: 'title yay akjhdaks',
             pictureURL:
                 'https://photos.smugmug.com/South-Africa-2017/Cape-Town-Audreys/i-wQnP4j9/0/36268230/L/Cape-Town-5-L.jpg',
             dateTime: DateTime.parse("1969-07-20 20:19:04Z"), // 8:19pm
@@ -28,6 +29,7 @@ class ChallengeListDemo with ChangeNotifier {
           ),
           ChallengeEntry(
             id: 'entry0',
+            title: 'title yay',
             pictureURL:
                 'https://media-exp1.licdn.com/dms/image/C4D22AQFwZrtvhHKfKg/feedshare-shrink_800/0/1605704066137?e=1621468800&v=beta&t=ArKJUpRjwa26XeHNyw0iJ0f4GbHaNiKhmPIhg4ziwY4',
             dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
@@ -41,6 +43,7 @@ class ChallengeListDemo with ChangeNotifier {
           ),
           ChallengeEntry(
             id: 'entry2',
+            title: 'title yay',
             pictureURL:
                 'https://www.glenavon.co.za/wp-content/uploads/2017/12/Cape-Town-Attractions-Table-Mountain-View.jpg',
             dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
@@ -64,6 +67,7 @@ class ChallengeListDemo with ChangeNotifier {
         submits: [
           ChallengeEntry(
             id: 'entry2',
+            title: 'title yay a#d hka',
             pictureURL: 'https://i.ytimg.com/vi/nSXZcPfgnvE/hqdefault.jpg',
             dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
             votes: 87,
@@ -76,6 +80,7 @@ class ChallengeListDemo with ChangeNotifier {
           ),
           ChallengeEntry(
             id: 'entry2',
+            title: 'title yay',
             pictureURL: 'https://i.redd.it/pv2td453rzn41.jpg',
             dateTime: DateTime.parse("1969-07-20 20:18:04Z"), // 8:18pm
             votes: 23,

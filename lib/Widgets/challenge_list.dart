@@ -14,9 +14,9 @@ class ChallengeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final challenges = Provider.of<ChallengeListDemo>(context).items;
-    return Container(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(0),
-      color: Theme.of(context).primaryColor,
+      //color: Theme.of(context).primaryColor,
       child: challenges.isEmpty
           ? Text('No Challenges')
           : Column(
