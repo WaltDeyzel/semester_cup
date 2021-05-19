@@ -7,6 +7,7 @@ import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
 import './Screens/add_challenge_screen.dart';
+import './Screens/add_entry_screen.dart';
 
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
             SpesificChallengeScreen.routeName: (ctx) =>
                 SpesificChallengeScreen(),
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
+            AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
             UserScreen.routeName: (ctx) => UserScreen(),
           },
         ));
