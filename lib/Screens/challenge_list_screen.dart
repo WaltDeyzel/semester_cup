@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Widgets/challenge_list.dart';
-import '../Widgets/add_challenge.dart';
+import 'add_challenge_screen.dart';
 
 class ChallengeListScreen extends StatefulWidget {
   static const routeName = "/challenge_list_screen";
@@ -11,20 +11,6 @@ class ChallengeListScreen extends StatefulWidget {
 }
 
 class _ChallengeListScreen extends State<ChallengeListScreen> {
-  void _addNewChallenge(BuildContext ctx) {
-    showModalBottomSheet(
-      context: ctx,
-      builder: (btcx) {
-        return GestureDetector(
-          onTap: () {},
-          // Widget for adding a challange
-          child: AddChallenge(),
-          behavior: HitTestBehavior.opaque,
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +37,9 @@ class _ChallengeListScreen extends State<ChallengeListScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         child: Icon(Icons.drive_file_rename_outline),
-        onPressed: () => {_addNewChallenge(context)},
+        onPressed: () => {
+         Navigator.of(context).pushNamed(AddChallengeScreen.routeName)
+        }
       ),
     );
   }
