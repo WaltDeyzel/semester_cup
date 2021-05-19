@@ -7,6 +7,8 @@ class ChallengeListDemo with ChangeNotifier {
   List<Challenge> _items = [
     Challenge(
         id: 'p1',
+       deadline: DateTime.now(),
+        created: DateTime.now(),
         // MOUNTAIN -------------------------------------------------
         title: 'Table mountain selfie',
         description: 'Take a picture with our favorite mountain!',
@@ -53,6 +55,8 @@ class ChallengeListDemo with ChangeNotifier {
         ]),
     Challenge(
         id: 'p2',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Run from a UCT pigeon',
         // PIGION ------------------------------------------------- 
         description:
@@ -85,36 +89,50 @@ class ChallengeListDemo with ChangeNotifier {
         ]),
     Challenge(
         id: 'p4',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Attend a hackathon',
         description: 'yay for devsoc!',
         submits: []),
     Challenge(
         id: 'p6',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Sleep in Library',
         description: 'the UCT birdies.',
         submits: []),
     Challenge(
         id: 'p4',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Solve a Rubik\'s cube',
         description: 'bragging rights.',
         submits: []),
     Challenge(
         id: 'p4',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Get a UNI hoodie',
         description: 'bragging rights.',
         submits: []),
     Challenge(
         id: 'p6',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: '2X Lecture videos.',
         description: 'Faste Pase',
         submits: []),
     Challenge(
         id: 'p4',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Start studying on day of test.',
         description: 'the standard.',
         submits: []),
     Challenge(
         id: 'p5',
+        deadline: DateTime.now(),
+        created: DateTime.now(),
         title: 'Get coffee from a vending machine',
         description: 'with to much sugar.',
         submits: []),
