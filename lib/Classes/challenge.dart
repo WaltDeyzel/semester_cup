@@ -7,12 +7,16 @@ class Challenge with ChangeNotifier{
   final String title;
   final String description;
   final File coverPhoto;
+  final DateTime deadline;
+  final DateTime created;
   final List<ChallengeEntry> submits;
 
   Challenge({
     @required this.id,
     @required this.title,
     @required this.description,
+    @required this.deadline,
+    @required this.created,
     this.coverPhoto,
     this.submits,
   });
