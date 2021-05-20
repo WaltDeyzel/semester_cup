@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import '../Classes/challenge.dart';
-
+import '../Screens/spesific_challange_screen.dart';
 class ChallangeTile extends StatefulWidget {
-  final selectedChallengeRoute;
+  //final selectedChallengeRoute;
   final challange;
-  ChallangeTile(this.selectedChallengeRoute, this.challange);
+  ChallangeTile(this.challange);
   @override
   _ChallangeTile createState() =>
-      _ChallangeTile(this.selectedChallengeRoute, this.challange);
+      _ChallangeTile(this.challange);
 }
 
 class _ChallangeTile extends State<ChallangeTile> {
-  final _selectedChallengeRoute;
   final Challenge _challange;
-  _ChallangeTile(this._selectedChallengeRoute, this._challange);
+  _ChallangeTile(this._challange);
+
+  void _selectedChallengeRoute(Challenge challenge, BuildContext context) {
+    Navigator.of(context)
+        .pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
+  }
 
   bool info = false;
   static const Color cardsColour = Colors.white;

@@ -7,6 +7,7 @@ import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
 import './Screens/add_challenge_screen.dart';
+import './Screens/add_entry_screen.dart';
 
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Georgia',
             textTheme: TextTheme(
               // App bar title
-              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
+              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.teal),
               // Challenge title
               headline2: TextStyle(
                   fontWeight: FontWeight.w100,
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.black),
               // Spesific challenge page app bar title
               headline4: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.teal)
             ),
           ),
           routes: {
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
             SpesificChallengeScreen.routeName: (ctx) =>
                 SpesificChallengeScreen(),
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
+            AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
             UserScreen.routeName: (ctx) => UserScreen(),
           },
         ));
