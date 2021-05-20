@@ -24,7 +24,7 @@ class _HomeScreen extends State<HomeScreen> {
       appBar: AppBar(
         leading: Icon(Icons.emoji_events, color: Colors.yellow,),
         title: Text("SemesterCup",style: Theme.of(context).textTheme.headline1,),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).accentColor,
       ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(

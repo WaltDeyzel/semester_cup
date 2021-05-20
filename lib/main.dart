@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Georgia',
             textTheme: TextTheme(
               // App bar title
-              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
+              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.teal),
               // Challenge title
               headline2: TextStyle(
                   fontWeight: FontWeight.w100,
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.black),
               // Spesific challenge page app bar title
               headline4: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white)
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.teal)
             ),
           ),
           routes: {

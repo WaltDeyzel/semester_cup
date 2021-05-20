@@ -16,8 +16,12 @@ class SpesificChallengeScreen extends StatelessWidget {
     // All entries of selected challange
 
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).accentColor,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).primaryColor,
+        ),
         title: Text(
           selectedChallenge.title,
           style: Theme.of(context).textTheme.headline4,
