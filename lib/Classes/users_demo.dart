@@ -54,7 +54,7 @@ class UserListDemo with ChangeNotifier {
       name: 'Walt',
       studentNum: 'WALTINO003',
       email: 'WALTINO@myuct.ac.za',
-      points: 97,
+      points: 9700,
     ),
     User(
       name: 'Chelsea',

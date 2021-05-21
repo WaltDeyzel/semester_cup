@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
+import './profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,9 +23,25 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.emoji_events, color: Colors.yellow,),
-        title: Text("SemesterCup",style: Theme.of(context).textTheme.headline1,),
+        leading: Icon(
+          Icons.emoji_events,
+          color: Colors.yellow,
+        ),
+        title: Text(
+          "SemesterCup",
+          style: Theme.of(context).textTheme.headline1,
+        ),
         backgroundColor: Theme.of(context).accentColor,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.account_circle_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed:
+                () {}, //{Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: )
+          ),
+        ],
       ),
       body: _pages[_pageIndex],
       bottomNavigationBar: BottomNavigationBar(

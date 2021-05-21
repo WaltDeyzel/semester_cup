@@ -7,7 +7,7 @@ class LeaderboardTile extends StatelessWidget {
   final user;
   LeaderboardTile(this.user);
   void selectedUserRoute(User user, BuildContext context) {
-    Navigator.of(context).pushNamed(UserScreen.routeName, arguments: user);
+    Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: user);
   }
 
   @override

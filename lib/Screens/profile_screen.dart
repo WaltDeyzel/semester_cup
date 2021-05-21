@@ -4,7 +4,7 @@ import 'package:semester_cup/Widgets/profile_entries.dart';
 import '../Classes/user.dart';
 import '../Widgets/profile_tile.dart';
 
-class UserScreen extends StatelessWidget {
+class ProfileScreen extends StatelessWidget {
   static const routeName = '/user-screen';
 
   @override
@@ -30,13 +30,16 @@ class UserScreen extends StatelessWidget {
             Stack(children: [
               PhotoCircle(user.profilePhoto, () {}),
               Positioned(
-                  bottom: 0,
-                  right: 50,
-                  child: Text(user.points.toString(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.black)))
+                bottom: 0,
+                right: 50,
+                child: Text(
+                  user.points.toString(),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.black),
+                ),
+              )
             ]),
             ProfileTile("Student no:", user.studentNum),
             ProfileTile("Email:", user.email),

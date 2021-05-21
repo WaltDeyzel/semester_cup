@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Georgia',
             textTheme: TextTheme(
               // App bar title
-              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.teal),
+              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.teal),
               // Challenge title
               headline2: TextStyle(
                   fontWeight: FontWeight.w100,
@@ -58,11 +58,10 @@ class MyApp extends StatelessWidget {
             '/': (ctx) => HomeScreen(),
             ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
             LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
-            SpesificChallengeScreen.routeName: (ctx) =>
-                SpesificChallengeScreen(),
+            SpesificChallengeScreen.routeName: (ctx) => SpesificChallengeScreen(),
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
             AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
-            UserScreen.routeName: (ctx) => UserScreen(),
+            ProfileScreen.routeName: (ctx) => ProfileScreen(),
           },
         ));
   }
