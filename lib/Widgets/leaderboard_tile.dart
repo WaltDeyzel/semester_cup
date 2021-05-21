@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:semester_cup/Classes/user.dart';
-import 'package:semester_cup/Screens/user_screen.dart';
+import 'package:semester_cup/Screens/profile_screen.dart';
 
 class LeaderboardTile extends StatelessWidget {
   final user;

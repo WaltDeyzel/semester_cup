@@ -8,7 +8,7 @@ class User {
   final String email;
   final File profilePhoto;
   final int points;
-  List<ChallengeEntry> completed = [];
+  List<ChallengeEntry> completed;
 
   User({
     @required this.name,
@@ -17,5 +17,6 @@ class User {
     this.profilePhoto,
     @required
         this.points, //in later iterations we will make this dynamic. given time constraints we make this static
+    this.completed,
   });
 }

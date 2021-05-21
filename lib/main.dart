@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './Screens/user_screen.dart';
+import 'Screens/profile_screen.dart';
 import './Screens/spesific_challange_screen.dart';
 import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
