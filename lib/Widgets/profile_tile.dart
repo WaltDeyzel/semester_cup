@@ -7,25 +7,22 @@ class ProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(vertical: 5.0),
+      width: 250,
+      margin: EdgeInsets.symmetric(vertical: 3.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
+        color: Colors.grey[200],
       ),
-      child: Column(children: <Widget>[
-        Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+      child: ListTile(
+        leading: Text(
+          title,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        Center(
-          child: Text(
-            info,
-            style: TextStyle(fontSize: 18),
-          ),
+        title: Text(
+          info,
+          style: Theme.of(context).textTheme.headline3,
         ),
-      ]),
+      ),
     );
   }
 }

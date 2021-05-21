@@ -23,17 +23,29 @@ class UserScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(child:Column(
-        children: [
-          SizedBox(height: 15),
-          PhotoCircle(user.profilePhoto, (){}),
-          ProfileTile("Student no:", user.studentNum),
-          ProfileTile("Email address:", user.email),
-          ProfileTile('Votes', user.points.toString()),
-          ProfileEntires(user.completed),
-          SizedBox(height:10),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 15),
+            Stack(children: [
+              PhotoCircle(user.profilePhoto, () {}),
+              Positioned(
+                  bottom: 0,
+                  right: 50,
+                  child: Text(user.points.toString(),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black)))
+            ]),
+            ProfileTile("Student no:", user.studentNum),
+            ProfileTile("Email:", user.email),
+            SizedBox(height: 10),
+            ProfileEntires(user.completed),
+            SizedBox(height: 10),
+          ],
+        ),
       ),
-    ),);
+    );
   }
 }
