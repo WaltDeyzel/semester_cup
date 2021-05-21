@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
 
+import '../Widgets/photo_circle.dart';
+
 // Creating a challange form
 class AddChallengeScreen extends StatefulWidget {
   static const routeName = "/add_challange_screen";
@@ -83,38 +85,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
             child: ListView(
               children: <Widget>[
                 // COVER IMAGE DISPLAYED IN THE CENTER OF DEVICE
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      _imgFromCamera();
-                    },
-                    child: CircleAvatar(
-                      radius: 55,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: _coverPhoto != null
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.file(
-                                _coverPhoto,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.fill,
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(50)),
-                              width: 100,
-                              height: 100,
-                              child: Icon(
-                                Icons.camera_alt,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                    ),
-                  ),
-                ),
+                PhotoCircle(_coverPhoto, _imgFromCamera),
                 //JUST FOR SPACING THE CIRCLE AWAY FROM APPBAR
                 SizedBox(
                   height: 15,
