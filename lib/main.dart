@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './Screens/user_screen.dart';
+import 'Screens/profile_screen.dart';
 import './Screens/spesific_challange_screen.dart';
 import './Screens/home_screen.dart';
 import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
 import './Screens/add_challenge_screen.dart';
 import './Screens/add_entry_screen.dart';
+import './Screens/login_Screen.dart';
+import './Screens/signup_screen.dart';
 
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
@@ -17,7 +19,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Georgia',
             textTheme: TextTheme(
               // App bar title
-              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.teal),
+              headline1: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.teal),
               // Challenge title
               headline2: TextStyle(
                   fontWeight: FontWeight.w100,
@@ -58,11 +59,11 @@ class MyApp extends StatelessWidget {
             '/': (ctx) => HomeScreen(),
             ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
             LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
-            SpesificChallengeScreen.routeName: (ctx) =>
-                SpesificChallengeScreen(),
+            SpesificChallengeScreen.routeName: (ctx) => SpesificChallengeScreen(),
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
             AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
-            UserScreen.routeName: (ctx) => UserScreen(),
+            ProfileScreen.routeName: (ctx) => ProfileScreen(),
+            SignUpScreen.routeName: (ctx) => SignUpScreen(),
           },
         ));
   }

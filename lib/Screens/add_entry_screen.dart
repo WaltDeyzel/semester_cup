@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import '../Classes/challengeEntry.dart';
 import '../Classes/challenge.dart';
 import '../Classes/challenges_demo.dart';
+
+import '../Widgets/photo_circle.dart';
+
 // Creating a challange form
 class AddEntryScreen extends StatefulWidget {
   static const routeName = "/add_entry_screen";
@@ -66,38 +69,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
               child: ListView(
                 children: <Widget>[
                   // COVER IMAGE DISPLAYED IN THE CENTER OF DEVICE
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {
-                        _imgFromCamera();
-                      },
-                      child: CircleAvatar(
-                        radius: 55,
-                        backgroundColor: Theme.of(context).primaryColor,
-                        child: _coverPhoto != null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.file(
-                                  _coverPhoto,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.fill,
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(50)),
-                                width: 100,
-                                height: 100,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                      ),
-                    ),
-                  ),
+                  PhotoCircle(_coverPhoto, _imgFromCamera),
                   //JUST FOR SPACING THE CIRCLE AWAY FROM APPBAR
                   SizedBox(
                     height: 15,
