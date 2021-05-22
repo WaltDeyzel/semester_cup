@@ -8,6 +8,8 @@ import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
 import './Screens/add_challenge_screen.dart';
 import './Screens/add_entry_screen.dart';
+import './Screens/login_Screen.dart';
+import './Screens/signup_screen.dart';
 
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
@@ -17,7 +19,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
             AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
             AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
             ProfileScreen.routeName: (ctx) => ProfileScreen(),
+            SignUpScreen.routeName: (ctx) => SignUpScreen(),
           },
         ));
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
-import './profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
