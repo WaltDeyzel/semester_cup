@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'Screens/profile_screen.dart';
 import './Screens/spesific_challange_screen.dart';
 import './Screens/home_screen.dart';
@@ -14,7 +15,9 @@ import './Screens/signup_screen.dart';
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -56,7 +59,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           routes: {
-            '/': (ctx) => HomeScreen(),
+            '/': (ctx) => LoginScreen(),
             ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
             LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
             SpesificChallengeScreen.routeName: (ctx) => SpesificChallengeScreen(),

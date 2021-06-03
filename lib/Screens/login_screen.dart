@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:semester_cup/Screens/signup_screen.dart';
+import '../services/authentication.dart';
 
 // Creating a challange form
 class LoginScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = AuthService();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -61,8 +63,10 @@ class _LoginScreen extends State<LoginScreen> {
                     child: Text('LogIn',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
-                    onPressed: () {
-                      _submitData();
+                    onPressed: () async{
+                      //_submitData();
+                      dynamic result = await _auth.signInAnom();
+                      print(result);
                     },
                   ),
                 ),
