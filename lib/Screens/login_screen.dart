@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Screens/signup_screen.dart';
 import '../services/authentication.dart';
+
+import 'package:semester_cup/Screens/signup_screen.dart';
 
 // Creating a challange form
 class LoginScreen extends StatefulWidget {
@@ -13,12 +14,17 @@ class _LoginScreen extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData() {
+  void _submitData(AuthService _auth) async{
     final isValid = _form.currentState.validate();
     if (!isValid) return;
+    else {
+      _form.currentState.save();
+      dynamic result = await _auth.signInEmailPassword(_email, _password);
+    }
   }
-  var email2 = '';
-  var password2 = '';
+  
+  var _email = '';
+  var _password = '';
   @override
   Widget build(BuildContext context) {
     final AuthService _auth = AuthService();
@@ -42,7 +48,7 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (email){email2=email;},
+                  onSaved: (email){_email=email;},
                 ),
                 // SPACING
                 SizedBox(height: 5),
@@ -58,7 +64,7 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (password){password2=password;},
+                  onSaved: (password){_password=password;},
                 ),
                 Container(
                   height: 60,
@@ -66,12 +72,8 @@ class _LoginScreen extends State<LoginScreen> {
                     child: Text('SignIn',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
-                    onPressed: () async{
-                      //_submitData();
-                      _form.currentState.save();
-                      dynamic result = await _auth.signInEmailPassword(email2, password2);
-                      print(email2.toString() + ' - ' + password2);
-                      print(result.name);
+                    onPressed: (){
+                      _submitData(_auth);
                     },
                   ),
                 ),

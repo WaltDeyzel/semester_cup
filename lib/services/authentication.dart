@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import '../Classes/user.dart' as User2;
-class AuthService{
+// import 'package:firebase_core/firebase_core.dart';
+import '../Classes/user.dart' as current;
+class AuthService {
         
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -17,8 +17,8 @@ class AuthService{
       }
     }
 
-    User2.User _userFromFirebaseUser(User user){
-      return User2.User(name: 'Testing', email: user.email, studentNum: 'testing', points: 0);
+    current.User _userFromFirebaseUser(User user){
+      return(user != null ? current.User(name: 'Testing', email: user.email, studentNum: 'testing', points: 0): null);
     }
 
     Future registerEmailPassword(String email, String password) async{
@@ -28,6 +28,7 @@ class AuthService{
         return _userFromFirebaseUser(user);
       }
       catch(e){
+        print(e.toString());
         return null;
       }
     }
@@ -41,6 +42,21 @@ class AuthService{
       catch(e){
         print(e.toString());
         return null;
+      }
+    }
+
+    Stream<current.User> get user{
+      // return _auth.authStateChanges().map((User user) => _userFromFirebaseUser(user));
+      return _auth.authStateChanges().map(_userFromFirebaseUser);
+    }
+
+    Future signOut() async{
+      try{
+        return await _auth.signOut();
+      }
+      catch(e){
+        print('Sign out Error ' + e.toString());
+        return(null);
       }
     }
 

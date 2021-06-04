@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/authentication.dart';
 
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
@@ -9,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  final AuthService _auth = AuthService();
   final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
   int _pageIndex = 0;
   void _selectPage(int index) {
@@ -38,7 +40,7 @@ class _HomeScreen extends State<HomeScreen> {
               color: Theme.of(context).primaryColor,
             ),
             onPressed:
-                () {}, //{Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: )
+                () async{_auth.signOut();},
           ),
         ],
       ),
