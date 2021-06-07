@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Widgets/photo_circle.dart';
-import 'package:semester_cup/Widgets/profile_entries.dart';
+import '../Widgets/photo_circle.dart';
+import '../widgets/profile_entries.dart';
 import '../Classes/user.dart';
 import '../Widgets/profile_tile.dart';
 
@@ -10,6 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User user = ModalRoute.of(context).settings.arguments as User;
+    print(user);
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
@@ -27,24 +28,24 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 15),
-            Stack(children: [
-              PhotoCircle(user.profilePhoto, () {}),
-              Positioned(
-                bottom: 0,
-                right: 50,
-                child: Text(
-                  user.points.toString(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black),
-                ),
-              )
-            ]),
+            // Stack(children: [
+            //   //PhotoCircle(user.profilePhoto, () {}),
+            //   Positioned(
+            //     bottom: 0,
+            //     right: 50,
+            //     child: Text(
+            //       '3',
+            //       style: TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           fontSize: 20,
+            //           color: Colors.black),
+            //     ),
+            //   )
+            // ]),
             ProfileTile("Student no:", user.studentNum),
             ProfileTile("Email:", user.email),
             SizedBox(height: 10),
-            ProfileEntires(user.completed),
+            // ProfileEntires(user.completed),
             SizedBox(height: 10),
           ],
         ),

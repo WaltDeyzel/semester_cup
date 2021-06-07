@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:semester_cup/Classes/user.dart';
 import '../services/authentication.dart';
+import 'package:provider/provider.dart';
 
+import '../Screens/profile_screen.dart';
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
+import '../classes/user.dart';
+import '../Classes/user.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  _HomeScreen createState() => _HomeScreen();
+  final _user;
+  HomeScreen(this._user);
+  _HomeScreen createState() => _HomeScreen(_user);
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  final _user;
+  _HomeScreen(this._user);
   final AuthService _auth = AuthService();
   final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
   int _pageIndex = 0;
@@ -17,7 +26,6 @@ class _HomeScreen extends State<HomeScreen> {
     setState(() {
       _pageIndex = index;
     });
-    //how to pass user
   }
 
   @override
@@ -37,6 +45,16 @@ class _HomeScreen extends State<HomeScreen> {
           IconButton(
             icon: Icon(
               Icons.account_circle_rounded,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed:
+                 (){
+                  Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: _user);
+                 }
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.person,
               color: Theme.of(context).primaryColor,
             ),
             onPressed:

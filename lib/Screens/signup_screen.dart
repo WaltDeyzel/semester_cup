@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
-import '../Classes/user.dart';
-
-import '../Widgets/photo_circle.dart';
+import '../services/authentication.dart';
 
 // Creating a challange form
 class SignUpScreen extends StatefulWidget {
@@ -16,41 +13,33 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreen extends State<SignUpScreen> {
   final _form = GlobalKey<FormState>();
   final picker = ImagePicker();
-  File _coverPhoto; // COVER PHOTO SELCTED BY USER
-
-  // NEW USER
-  var _newUser = User(email: '', name: '', studentNum: '', points: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData() {
+  void _submitData(AuthService _auth) async {
     final isValid = _form.currentState.validate();
-    if (!isValid) return;
-    // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
-    if (_coverPhoto == null) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Selecte a photo.'),
-            );
-          });
-    } else {
+    if (!isValid)
+      return;
+    else {
       _form.currentState.save();
-      Navigator.of(context).pop();
+      dynamic result = await _auth.registerEmailPassword(_email, _password);
+      if (result == null) {
+        final snackBar = SnackBar(content: Text('There seems to have been an error.'));
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print('error error');
+      }else {
+        Navigator.of(context).pop();
+      }
     }
   }
 
-  // ALLOWS USER TO SELCET PICTURE FROM GALLERY. CHANGING GALLERY TO CAMERA ALLOWS PHOTO TO BE TAKEN DIRECTLY
-  Future<void> _imgFromCamera() async {
-    final image = await picker.getImage(
-        source: ImageSource.gallery, imageQuality: 50, maxWidth: 480);
-    setState(() {
-      _coverPhoto = File(image.path);
-    });
-  }
+  String _password = '';
+  String _email = '';
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = AuthService();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -60,77 +49,54 @@ class _SignUpScreen extends State<SignUpScreen> {
             key: _form,
             child: ListView(
               children: <Widget>[
-                // COVER IMAGE DISPLAYED IN THE CENTER OF DEVICE
-                PhotoCircle(_coverPhoto, _imgFromCamera),
-                //JUST FOR SPACING THE CIRCLE AWAY FROM APPBAR
-                SizedBox(height: 15),
-                // TITLE SELECTION FOR CHALLENGE
+                // SPACING
+                SizedBox(height: 80),
                 TextFormField(
-                  maxLines: 1,
-                  maxLength: 15,
                   decoration: InputDecoration(
-                    labelText: "Name",
+                    labelText: "Email",
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (name) {
-                    _newUser =
-                        User(email: '', name: name, studentNum: '', points: 0);
-                  },
+                  onSaved: (value) => _email = value,
                 ),
                 // SPACING
                 SizedBox(height: 5),
                 // DESCRIPTION SELECTION FRO CHALLANEG
                 TextFormField(
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  obscureText: true,
                   decoration: InputDecoration(
-                    labelText: "Student number",
+                    labelText: "Password",
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25.0),
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (stdNo) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: stdNo,
-                        points: 0);
+                  onSaved: (value) => _password = value,
+                  validator: (value) {
+                    if (value.isEmpty) return ('Enter password');
+                    if (value.length < 6)
+                      return ('Password must be at least 6 characters long.');
+                    return null;
                   },
                 ),
                 // SPACING
-                SizedBox(height: 15),
-                // DATE PICKER
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "email",
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onSaved: (newValue) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: _newUser.studentNum,
-                        points: 0);
-                  },
-                ),
+                SizedBox(height: 5),
                 Container(
                   height: 60,
                   child: TextButton(
                     child: Text(
-                      'Submit',
+                      'Register',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                     onPressed: () {
-                      _submitData();
+                      _submitData(_auth);
                     },
                   ),
                 ),

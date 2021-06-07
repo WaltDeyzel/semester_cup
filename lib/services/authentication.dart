@@ -1,4 +1,6 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:semester_cup/services/database.dart';
 // import 'package:firebase_core/firebase_core.dart';
 import '../Classes/user.dart' as current;
 class AuthService {
@@ -25,6 +27,7 @@ class AuthService {
       try{
         UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
         User user = result.user;
+        await DatabaseService(user.uid).updateUserData('', user.email);
         return _userFromFirebaseUser(user);
       }
       catch(e){
@@ -55,7 +58,7 @@ class AuthService {
         return await _auth.signOut();
       }
       catch(e){
-        print('Sign out Error ' + e.toString());
+        print(e.toString());
         return(null);
       }
     }

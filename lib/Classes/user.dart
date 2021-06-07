@@ -12,11 +12,10 @@ class User {
 
   User({
     @required this.name,
-    @required this.studentNum,
     @required this.email,
+    @required this.points,
+    this.studentNum,
     this.profilePhoto,
-    @required
-        this.points, //in later iterations we will make this dynamic. given time constraints we make this static
     this.completed,
   });
 }

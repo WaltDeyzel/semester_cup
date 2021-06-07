@@ -20,6 +20,13 @@ class _LoginScreen extends State<LoginScreen> {
     else {
       _form.currentState.save();
       dynamic result = await _auth.signInEmailPassword(_email, _password);
+      if (result == null) {
+        final snackBar = SnackBar(content: Text('There seems to have been an error.'));
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print('error error');
+      } 
     }
   }
   
