@@ -28,9 +28,11 @@ class _HomeScreen extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.emoji_events,
-          color: Colors.yellow,
+        leading: IconButton(
+          icon: Icon(Icons.emoji_events, color: Colors.yellow),
+          onPressed: () async {
+            _auth.signOut();
+          },
         ),
         title: Text(
           "SemesterCup",
@@ -39,23 +41,14 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Theme.of(context).accentColor,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-            onPressed:
-                 (){
-                  Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: _user);
-                 }
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              color: Theme.of(context).primaryColor,
-            ),
-            onPressed:
-                () async{_auth.signOut();},
-          ),
+              icon: Icon(
+                Icons.person,
+                color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(ProfileScreen.routeName, arguments: _user);
+              }),
         ],
       ),
       body: _pages[_pageIndex],
