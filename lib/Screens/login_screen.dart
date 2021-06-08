@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/authentication.dart';
 
-import 'package:semester_cup/Screens/signup_screen.dart';
-
 // Creating a challange form
 class LoginScreen extends StatefulWidget {
   static const routeName = "/add_challange_screen";
@@ -12,24 +10,32 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreen extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
-
+  bool signIn = true;
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(AuthService _auth) async{
+  void _submitData(AuthService _auth) async {
     final isValid = _form.currentState.validate();
-    if (!isValid) return;
+    if (!isValid)
+      return;
     else {
       _form.currentState.save();
-      dynamic result = await _auth.signInEmailPassword(_email, _password);
+      dynamic result;
+      if(signIn){
+        result = await _auth.signInEmailPassword(_email, _password);
+      }
+      else{
+        result = await _auth.registerEmailPassword(_email, _password);
+      }
       if (result == null) {
-        final snackBar = SnackBar(content: Text('There seems to have been an error.'));
+        final snackBar =
+            SnackBar(content: Text('There seems to have been an error.'));
         // Find the ScaffoldMessenger in the widget tree
         // and use it to show a SnackBar.
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         print('error error');
-      } 
+      }
     }
   }
-  
+
   var _email = '';
   var _password = '';
   @override
@@ -55,7 +61,9 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (email){_email=email;},
+                  onSaved: (email) {
+                    _email = email;
+                  },
                 ),
                 // SPACING
                 SizedBox(height: 5),
@@ -71,20 +79,32 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
-                  onSaved: (password){_password=password;},
+                  onSaved: (password) {
+                    _password = password;
+                  },
                 ),
-                Container(
+                signIn ? Container(
                   height: 60,
                   child: TextButton(
-                    child: Text('SignIn',
+                    child: Text('Sign In',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
-                    onPressed: (){
+                    onPressed: () {
+                      _submitData(_auth);
+                    },
+                  ),
+                ) : Container(
+                  height: 60,
+                  child: TextButton(
+                    child: Text('Register',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24)),
+                    onPressed: () {
                       _submitData(_auth);
                     },
                   ),
                 ),
-                Container(
+                signIn ? Container(
                   height: 60,
                   child: TextButton(
                     child: Text(
@@ -96,7 +116,22 @@ class _LoginScreen extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                      setState(() {signIn = false;});
+                    },
+                  ),
+                ) : Container(
+                  height: 60,
+                  child: TextButton(
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {signIn = true;});
                     },
                   ),
                 ),

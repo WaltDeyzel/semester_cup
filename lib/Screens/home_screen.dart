@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Classes/user.dart';
 import '../services/authentication.dart';
-import 'package:provider/provider.dart';
 
 import '../Screens/profile_screen.dart';
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
-import '../classes/user.dart';
-import '../Classes/user.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

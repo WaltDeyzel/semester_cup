@@ -9,7 +9,7 @@ import './Screens/leaderboard_screen.dart';
 import './Screens/challenge_list_screen.dart';
 import './Screens/add_challenge_screen.dart';
 import './Screens/add_entry_screen.dart';
-import './Screens/signup_screen.dart';
+import 'Screens/profile_settings_screen.dart';
 
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
           AddChallengeScreen.routeName: (ctx) => AddChallengeScreen(),
           AddEntryScreen.routeName: (ctx) => AddEntryScreen(),
           ProfileScreen.routeName: (ctx) => ProfileScreen(),
-          SignUpScreen.routeName: (ctx) => SignUpScreen(),
+          ProfileSettingsScreen.routeName: (ctx) => ProfileSettingsScreen(),
         },
       ),
     );

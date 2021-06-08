@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+
+import '../Screens/profile_settings_screen.dart';
+
+import '../Classes/user.dart';
+
+import '../Widgets/profile_tile.dart';
 import '../Widgets/photo_circle.dart';
 import '../widgets/profile_entries.dart';
-import '../Classes/user.dart';
-import '../Widgets/profile_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/user-screen';
@@ -22,6 +26,18 @@ class ProfileScreen extends StatelessWidget {
           user.name,
           style: Theme.of(context).textTheme.headline4,
         ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Theme.of(context).primaryColor,
+            ),
+            onPressed:
+                 (){
+                  Navigator.of(context).pushNamed(ProfileSettingsScreen.routeName);
+                 }
+          ),
+        ],
         centerTitle: true,
       ),
       body: SingleChildScrollView(
