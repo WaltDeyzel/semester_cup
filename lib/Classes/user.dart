@@ -1,22 +1,20 @@
 import 'package:flutter/foundation.dart';
 import '../Classes/challengeEntry.dart';
-import 'dart:io';
 
 class User {
+  final String uid;
   final String name;
-  final String studentNum; //acts as id
   final String email;
-  final File profilePhoto;
+  final String profileImage;
   final int points;
   List<ChallengeEntry> completed;
 
   User({
+    @required this.uid,
     @required this.name,
-    @required this.studentNum,
     @required this.email,
-    this.profilePhoto,
-    @required
-        this.points, //in later iterations we will make this dynamic. given time constraints we make this static
+    @required this.points,
+    this.profileImage,
     this.completed,
   });
 }

@@ -9,7 +9,7 @@ class PhotoCircle extends StatelessWidget {
   Widget build(BuildContext context) {
     const double h = 150;
     const double w = 150;
-    const double r = w/2;
+    const double r = w / 2;
     return Center(
       child: GestureDetector(
         onTap: () {
@@ -18,17 +18,8 @@ class PhotoCircle extends StatelessWidget {
         child: CircleAvatar(
           radius: r,
           backgroundColor: Theme.of(context).primaryColor,
-          child: photo != null
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(r),
-                  child: Image.file(
-                    photo,
-                    width: w,
-                    height: h,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              : Container(
+          child: photo == null
+              ? Container(
                   decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(r)),
@@ -38,7 +29,26 @@ class PhotoCircle extends StatelessWidget {
                     Icons.camera_alt,
                     color: Colors.grey[800],
                   ),
-                ),
+                )
+              : photo is String
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(r),
+                      child: Image.network(
+                        photo,
+                        width: w,
+                        height: h,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(r),
+                      child: Image.file(
+                        photo,
+                        width: w,
+                        height: h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
         ),
       ),
     );

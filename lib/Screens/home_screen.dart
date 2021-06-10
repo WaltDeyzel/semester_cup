@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../services/authentication.dart';
 
+import '../Screens/profile_screen.dart';
 import './challenge_list_screen.dart';
 import './leaderboard_screen.dart';
 
@@ -9,22 +11,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> {
+  final AuthService _auth = AuthService();
   final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
   int _pageIndex = 0;
   void _selectPage(int index) {
     setState(() {
       _pageIndex = index;
     });
-    //how to pass user
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.emoji_events,
-          color: Colors.yellow,
+        leading: IconButton(
+          icon: Icon(Icons.emoji_events, color: Colors.yellow),
+          onPressed: () async {
+            _auth.signOut();
+          },
         ),
         title: Text(
           "SemesterCup",
@@ -33,13 +37,14 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: Theme.of(context).accentColor,
         actions: [
           IconButton(
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: Theme.of(context).primaryColor,
-            ),
-            onPressed:
-                () {}, //{Navigator.of(context).pushNamed(ProfileScreen.routeName, arguments: )
-          ),
+              icon: Icon(
+                Icons.person,
+                color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(ProfileScreen.routeName);
+              }),
         ],
       ),
       body: _pages[_pageIndex],

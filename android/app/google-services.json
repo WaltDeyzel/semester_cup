@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "294064710987",
+    "project_id": "semester-cup",
+    "storage_bucket": "semester-cup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294064710987:android:8f79bfe60ce979d7faf4ce",
+        "android_client_info": {
+          "package_name": "com.example.semester_cup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294064710987-dop600vho0r5vmu8t472g9gdb50rka8g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABSQ5Xj5L7hPY75yaTW41TcOrb6Oy1Lhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294064710987-dop600vho0r5vmu8t472g9gdb50rka8g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+import '../services/database.dart';
 import '../Classes/user.dart';
-
 import '../Widgets/photo_circle.dart';
 
 // Creating a challange form
-class SignUpScreen extends StatefulWidget {
-  static const routeName = "/signUp_screen";
+class ProfileSettingsScreen extends StatefulWidget {
+  static const routeName = "/profile_settings_screen";
   @override
-  _SignUpScreen createState() => _SignUpScreen();
+  _ProfileSettingsScreen createState() => _ProfileSettingsScreen();
 }
 
-class _SignUpScreen extends State<SignUpScreen> {
+class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
   final _form = GlobalKey<FormState>();
   final picker = ImagePicker();
   File _coverPhoto; // COVER PHOTO SELCTED BY USER
 
   // NEW USER
-  var _newUser = User(email: '', name: '', studentNum: '', points: 0);
+  var _newUser = User(uid: '', email: '', name: '', points: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData() {
+  void _submitData(User user) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -35,7 +35,16 @@ class _SignUpScreen extends State<SignUpScreen> {
             );
           });
     } else {
+      print(user.uid);
       _form.currentState.save();
+      DatabaseService userData = DatabaseService(user.uid);
+      String imgURL;
+      if (_coverPhoto != null) {
+        imgURL = await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
+      }
+      print('----------------------------');
+      print(user.uid);
+      userData.updateUserData(user.uid, _newUser.name, user.email, imgURL);
       Navigator.of(context).pop();
     }
   }
@@ -51,6 +60,8 @@ class _SignUpScreen extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context).settings.arguments as User;
+    print(user.uid);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -61,13 +72,14 @@ class _SignUpScreen extends State<SignUpScreen> {
             child: ListView(
               children: <Widget>[
                 // COVER IMAGE DISPLAYED IN THE CENTER OF DEVICE
-                PhotoCircle(_coverPhoto, _imgFromCamera),
+                PhotoCircle(_coverPhoto==null? user.profileImage : _coverPhoto, _imgFromCamera),
                 //JUST FOR SPACING THE CIRCLE AWAY FROM APPBAR
                 SizedBox(height: 15),
                 // TITLE SELECTION FOR CHALLENGE
                 TextFormField(
                   maxLines: 1,
                   maxLength: 15,
+                  initialValue: user.name,
                   decoration: InputDecoration(
                     labelText: "Name",
                     fillColor: Colors.white,
@@ -78,49 +90,11 @@ class _SignUpScreen extends State<SignUpScreen> {
                   ),
                   onSaved: (name) {
                     _newUser =
-                        User(email: '', name: name, studentNum: '', points: 0);
+                        User(uid: user.uid, email: user.email, name: name, points: user.points);
                   },
                 ),
                 // SPACING
                 SizedBox(height: 5),
-                // DESCRIPTION SELECTION FRO CHALLANEG
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Student number",
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onSaved: (stdNo) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: stdNo,
-                        points: 0);
-                  },
-                ),
-                // SPACING
-                SizedBox(height: 15),
-                // DATE PICKER
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "email",
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onSaved: (newValue) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: _newUser.studentNum,
-                        points: 0);
-                  },
-                ),
                 Container(
                   height: 60,
                   child: TextButton(
@@ -130,7 +104,7 @@ class _SignUpScreen extends State<SignUpScreen> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                     onPressed: () {
-                      _submitData();
+                      _submitData(user);
                     },
                   ),
                 ),

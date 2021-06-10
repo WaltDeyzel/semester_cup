@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:semester_cup/Screens/signup_screen.dart';
+import '../services/authentication.dart';
 
 // Creating a challange form
 class LoginScreen extends StatefulWidget {
@@ -10,15 +10,37 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreen extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
-
+  bool signIn = true;
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData() {
+  void _submitData(AuthService _auth) async {
     final isValid = _form.currentState.validate();
-    if (!isValid) return;
+    if (!isValid)
+      return;
+    else {
+      _form.currentState.save();
+      dynamic result;
+      if(signIn){
+        result = await _auth.signInEmailPassword(_email, _password);
+      }
+      else{
+        result = await _auth.registerEmailPassword(_email, _password);
+      }
+      if (result == null) {
+        final snackBar =
+            SnackBar(content: Text('There seems to have been an error.'));
+        // Find the ScaffoldMessenger in the widget tree
+        // and use it to show a SnackBar.
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        print('error error');
+      }
+    }
   }
 
+  var _email = '';
+  var _password = '';
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = AuthService();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -39,6 +61,9 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
+                  onSaved: (email) {
+                    _email = email;
+                  },
                 ),
                 // SPACING
                 SizedBox(height: 5),
@@ -54,19 +79,32 @@ class _LoginScreen extends State<LoginScreen> {
                       borderSide: BorderSide(),
                     ),
                   ),
+                  onSaved: (password) {
+                    _password = password;
+                  },
                 ),
-                Container(
+                signIn ? Container(
                   height: 60,
                   child: TextButton(
-                    child: Text('LogIn',
+                    child: Text('Sign In',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
                     onPressed: () {
-                      _submitData();
+                      _submitData(_auth);
+                    },
+                  ),
+                ) : Container(
+                  height: 60,
+                  child: TextButton(
+                    child: Text('Register',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24)),
+                    onPressed: () {
+                      _submitData(_auth);
                     },
                   ),
                 ),
-                Container(
+                signIn ? Container(
                   height: 60,
                   child: TextButton(
                     child: Text(
@@ -78,7 +116,22 @@ class _LoginScreen extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(SignUpScreen.routeName);
+                      setState(() {signIn = false;});
+                    },
+                  ),
+                ) : Container(
+                  height: 60,
+                  child: TextButton(
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {signIn = true;});
                     },
                   ),
                 ),
