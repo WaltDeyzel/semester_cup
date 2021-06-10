@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import '../services/database.dart';
 import 'dart:io';
 
 import '../Classes/user.dart';
@@ -8,7 +10,7 @@ import '../Widgets/photo_circle.dart';
 
 // Creating a challange form
 class ProfileSettingsScreen extends StatefulWidget {
-  static const routeName = "/signUp_screen";
+  static const routeName = "/profile_settings_screen";
   @override
   _ProfileSettingsScreen createState() => _ProfileSettingsScreen();
 }
@@ -22,7 +24,8 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
   var _newUser = User(email: '', name: '', studentNum: '', points: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData() {
+  void _submitData(User user) async{
+    print(user.uid);
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -36,6 +39,9 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
           });
     } else {
       _form.currentState.save();
+      DatabaseService userData = DatabaseService(user.uid);
+      String imgURL =  await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
+      userData.updateUserData(user.uid, user.name, user.email, imgURL);
       Navigator.of(context).pop();
     }
   }
@@ -51,6 +57,8 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+    print(user.uid);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -68,6 +76,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                 TextFormField(
                   maxLines: 1,
                   maxLength: 15,
+                  initialValue: user.name,
                   decoration: InputDecoration(
                     labelText: "Name",
                     fillColor: Colors.white,
@@ -85,6 +94,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                 SizedBox(height: 5),
                 // DESCRIPTION SELECTION FRO CHALLANEG
                 TextFormField(
+                  initialValue: user.studentNum,
                   decoration: InputDecoration(
                     labelText: "Student number",
                     fillColor: Colors.white,
@@ -105,6 +115,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                 SizedBox(height: 15),
                 // DATE PICKER
                 TextFormField(
+                  initialValue: user.email,
                   decoration: InputDecoration(
                     labelText: "email",
                     fillColor: Colors.white,
@@ -130,7 +141,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                     onPressed: () {
-                      _submitData();
+                      _submitData(user);
                     },
                   ),
                 ),
