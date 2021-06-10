@@ -21,10 +21,10 @@ class DatabaseService {
 
   // Get user data and return User model
   Future<current.User> getUserData() async {
-    DocumentSnapshot userData = await collection.doc(uid).get();
-    current.User currentUser =
-        current.User(name: userData['name'], email: userData['email'],  profileImage: userData['profileImage'], points: 0);
-    return currentUser;
+    current.User user = await collection.doc(uid).get().then((document){
+      return current.User(uid: document['uid'], name: document['name'], email: document['email'],  profileImage: document['profileImage'], points: 0);;
+    });
+    return user;
   }
 
   // Upload user file and return a URL to file on database

@@ -24,7 +24,6 @@ class AuthService {
             uid: user.uid,
             name: 'TESTING',
             email: user.email,
-            studentNum: '000 000',
             points: 0)
         : null);
   }

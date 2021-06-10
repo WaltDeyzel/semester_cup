@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import '../services/database.dart';
 import 'dart:io';
 
+import '../services/database.dart';
 import '../Classes/user.dart';
-
 import '../Widgets/photo_circle.dart';
 
 // Creating a challange form
@@ -21,11 +19,10 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
   File _coverPhoto; // COVER PHOTO SELCTED BY USER
 
   // NEW USER
-  var _newUser = User(email: '', name: '', studentNum: '', points: 0);
+  var _newUser = User(uid: '', email: '', name: '', points: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(User user) async{
-    print(user.uid);
+  void _submitData(User user) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -38,10 +35,16 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
             );
           });
     } else {
+      print(user.uid);
       _form.currentState.save();
       DatabaseService userData = DatabaseService(user.uid);
-      String imgURL =  await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
-      userData.updateUserData(user.uid, user.name, user.email, imgURL);
+      String imgURL;
+      if (_coverPhoto != null) {
+        imgURL = await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
+      }
+      print('----------------------------');
+      print(user.uid);
+      userData.updateUserData(user.uid, _newUser.name, user.email, imgURL);
       Navigator.of(context).pop();
     }
   }
@@ -57,7 +60,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = ModalRoute.of(context).settings.arguments as User;
     print(user.uid);
     return Scaffold(
       body: Container(
@@ -69,7 +72,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
             child: ListView(
               children: <Widget>[
                 // COVER IMAGE DISPLAYED IN THE CENTER OF DEVICE
-                PhotoCircle(_coverPhoto, _imgFromCamera),
+                PhotoCircle(_coverPhoto==null? user.profileImage : _coverPhoto, _imgFromCamera),
                 //JUST FOR SPACING THE CIRCLE AWAY FROM APPBAR
                 SizedBox(height: 15),
                 // TITLE SELECTION FOR CHALLENGE
@@ -87,51 +90,11 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                   ),
                   onSaved: (name) {
                     _newUser =
-                        User(email: '', name: name, studentNum: '', points: 0);
+                        User(uid: user.uid, email: user.email, name: name, points: user.points);
                   },
                 ),
                 // SPACING
                 SizedBox(height: 5),
-                // DESCRIPTION SELECTION FRO CHALLANEG
-                TextFormField(
-                  initialValue: user.studentNum,
-                  decoration: InputDecoration(
-                    labelText: "Student number",
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onSaved: (stdNo) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: stdNo,
-                        points: 0);
-                  },
-                ),
-                // SPACING
-                SizedBox(height: 15),
-                // DATE PICKER
-                TextFormField(
-                  initialValue: user.email,
-                  decoration: InputDecoration(
-                    labelText: "email",
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                      borderSide: BorderSide(),
-                    ),
-                  ),
-                  onSaved: (newValue) {
-                    _newUser = User(
-                        email: '',
-                        name: _newUser.name,
-                        studentNum: _newUser.studentNum,
-                        points: 0);
-                  },
-                ),
                 Container(
                   height: 60,
                   child: TextButton(

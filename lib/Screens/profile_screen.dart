@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    var user = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         title: Text(
-          user.name,
+          'Profile',
           style: Theme.of(context).textTheme.headline4,
         ),
         actions: [
@@ -40,7 +40,9 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: FutureBuilder(
         future: DatabaseService(user.uid).getUserData(),
+        initialData: User(email: '', name: '', uid: '', points: 0),
         builder: (context, snapshot) {
+          user = snapshot.data;
           if (snapshot == null) return Text('LOADING');
           return SingleChildScrollView(
             child: Column(
