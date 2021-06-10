@@ -7,14 +7,10 @@ import './leaderboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  final _user;
-  HomeScreen(this._user);
-  _HomeScreen createState() => _HomeScreen(_user);
+  _HomeScreen createState() => _HomeScreen();
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  final _user;
-  _HomeScreen(this._user);
   final AuthService _auth = AuthService();
   final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
   int _pageIndex = 0;
@@ -47,7 +43,7 @@ class _HomeScreen extends State<HomeScreen> {
               ),
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamed(ProfileScreen.routeName, arguments: _user);
+                    .pushNamed(ProfileScreen.routeName);
               }),
         ],
       ),

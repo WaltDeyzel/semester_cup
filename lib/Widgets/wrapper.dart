@@ -9,6 +9,6 @@ class Wrapepr extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    return user == null ? LoginScreen() : HomeScreen(user);
+    return user == null ? LoginScreen() : HomeScreen();
   }
 }
