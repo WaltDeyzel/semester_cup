@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:semester_cup/services/database.dart';
 
 import './services/authentication.dart';
 import './Screens/profile_screen.dart';
@@ -14,6 +15,7 @@ import 'Screens/profile_settings_screen.dart';
 import './Classes/challenges_demo.dart';
 import './Classes/users_demo.dart';
 import './Classes/user.dart' as User2;
+import './Classes/challenge.dart';
 
 import './Widgets/wrapper.dart';
 
@@ -36,6 +38,9 @@ class MyApp extends StatelessWidget {
         ),
         StreamProvider<User2.User>.value(
           value: AuthService().user,
+        ),
+        StreamProvider<List<Challenge>>.value(
+          value: DatabaseService('').challenges,
         ),
       ],
       child: MaterialApp(

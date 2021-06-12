@@ -40,7 +40,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
       DatabaseService userData = DatabaseService(user.uid);
       String imgURL;
       if (_coverPhoto != null) {
-        imgURL = await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
+        imgURL = await (userData.uploadImageToFirebase(_coverPhoto, user.uid, 'images/profile'));
       }
       print('----------------------------');
       print(user.uid);

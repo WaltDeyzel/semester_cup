@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../services/database.dart';
 
-import '../Classes/challenges_demo.dart';
+import '../Classes/user.dart';
+// import '../Classes/challenges_demo.dart';
 import '../Widgets/challengeTile.dart';
+import '../Classes/challenge.dart';
 
 class Challenges extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final challenges = Provider.of<ChallengeListDemo>(context).items;
+    List<Challenge> chall = Provider.of<List<Challenge>>(context);
+    print('here');
+    print(chall[1].id);
     return ListView.builder(
-      itemCount: challenges.length,
+      itemCount: chall.length,
       itemBuilder: (context, index) {
-        return ChallangeTile(challenges[index]);
+        return ChallangeTile(chall[index]);
       },
     );
   }

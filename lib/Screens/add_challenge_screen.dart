@@ -3,9 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
+import '../services/database.dart';
 
 import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
+import '../Classes/user.dart';
 
 import '../Widgets/photo_circle.dart';
 
@@ -27,7 +29,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   var _newChallenge = Challenge(id: '', created: null, deadline: null, title: '', description: '');
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(ChallengeListDemo challenges) {
+  void _submitData(ChallengeListDemo challenges, String uid) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -41,6 +43,12 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
           });
     } else {
       _form.currentState.save();
+      DatabaseService data = DatabaseService(uid);
+      String imgURL;
+      if (_coverPhoto != null) {
+        imgURL = await (data.uploadImageToFirebase(_coverPhoto, uid, 'images/challenge'));
+      }
+      data.createChallenge(uid, _newChallenge.title, _newChallenge.description, imgURL);
       challenges.addChallenge(_newChallenge);
       challenges.notify();
       Navigator.of(context).pop();
@@ -74,6 +82,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String uid = Provider.of<User>(context).uid;
     final challenges = Provider.of<ChallengeListDemo>(context);
     return Scaffold(
       body: Container(
@@ -140,7 +149,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                         id: _newChallenge.id,
                         title: _newChallenge.title,
                         description: newValue,
-                        coverPhoto: _coverPhoto,
+                        coverPhoto: '',
                         deadline: _selectedDate,
                         created: DateTime.now(),
                         submits: []);
@@ -163,7 +172,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
                     onPressed: () {
-                      _submitData(challenges);
+                      _submitData(challenges, uid);
                     },
                   ),
                 ),

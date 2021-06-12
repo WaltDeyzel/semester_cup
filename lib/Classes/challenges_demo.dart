@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import './user.dart';
-import './challengeEntry.dart';
 import './challenge.dart';
 
 class ChallengeListDemo with ChangeNotifier {
