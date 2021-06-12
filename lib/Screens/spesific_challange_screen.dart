@@ -27,7 +27,7 @@ class SpesificChallengeScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline4,
         ),
       ),
-      body: ChallengeEntries(selectedChallenge.id),
+      body: Text('NO'),//ChallengeEntries(selectedChallenge.id),
       floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           child: Icon(Icons.add_a_photo),

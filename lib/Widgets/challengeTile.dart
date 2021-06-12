@@ -14,9 +14,9 @@ class _ChallangeTile extends State<ChallangeTile> {
   final Challenge _challange;
   _ChallangeTile(this._challange);
   
-  void _selectedChallengeRoute(Challenge challenge, BuildContext context) {
+  void _selectedChallengeRoute(Challenge _challenge, BuildContext context) {
     Navigator.of(context)
-        .pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
+        .pushNamed(SpesificChallengeScreen.routeName, arguments: _challenge);
   }
 
   bool info = false;
@@ -24,7 +24,6 @@ class _ChallangeTile extends State<ChallangeTile> {
   
   @override
   Widget build(BuildContext context) {
-    print('ff');
     return InkWell(
       onTap: () {
         _selectedChallengeRoute(_challange, context);
