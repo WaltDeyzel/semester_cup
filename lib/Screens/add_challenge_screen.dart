@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:intl/intl.dart';
 import '../services/database.dart';
 
-import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
 import '../Classes/user.dart';
 
@@ -29,7 +28,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   var _newChallenge = Challenge(id: '', created: null, deadline: null, title: '', description: '');
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(ChallengeListDemo challenges, String uid) async {
+  void _submitData(String uid) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -43,14 +42,8 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
           });
     } else {
       _form.currentState.save();
-      DatabaseService data = DatabaseService(uid);
-      String imgURL;
-      if (_coverPhoto != null) {
-        imgURL = await (data.uploadImageToFirebase(_coverPhoto, uid, 'images/challenge'));
-      }
-      data.createChallenge(uid, _newChallenge.title, _newChallenge.description, imgURL);
-      challenges.addChallenge(_newChallenge);
-      challenges.notify();
+      DatabaseService challengeData = DatabaseService(uid);
+      challengeData.addChallenge(_newChallenge, _coverPhoto);
       Navigator.of(context).pop();
     }
   }
@@ -83,7 +76,6 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   @override
   Widget build(BuildContext context) {
     String uid = Provider.of<User>(context).uid;
-    final challenges = Provider.of<ChallengeListDemo>(context);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -172,7 +164,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
                     onPressed: () {
-                      _submitData(challenges, uid);
+                      _submitData(uid);
                     },
                   ),
                 ),

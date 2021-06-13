@@ -25,12 +25,12 @@ class LeaderboardTile extends StatelessWidget {
               child: ListTile(
                 leading: CircleAvatar(
                   backgroundColor: Color.fromRGBO(0, 0, 0, 0.5),
-                  child: user.profilePhoto == null
+                  child: user.profileImage == null
                       ? Icon(Icons.account_circle)
                       : ClipRRect(
                           borderRadius: BorderRadius.circular(50),
-                          child: Image.file(
-                            user.profilePhoto,
+                          child: Image.network(
+                            user.profileImage,
                             width: 100,
                             height: 100,
                             fit: BoxFit.fill,
@@ -39,7 +39,7 @@ class LeaderboardTile extends StatelessWidget {
                 ),
                 title: Text(user.name),
                 // UNIVERSITY NAME AS SUBTITLE
-                subtitle: Text(user.studentNum),
+                subtitle: Text('99'),
                 // USER SCORE OVERALL?
                 trailing: Text(user.points.toString()),
               ),

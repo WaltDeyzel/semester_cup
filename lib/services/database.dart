@@ -5,11 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 
 class DatabaseService {
-  final String uid;
-  DatabaseService(this.uid);
+  final String _uid;
+  DatabaseService(this._uid);
 
   final CollectionReference collection =
-      FirebaseFirestore.instance.collection('user');
+      FirebaseFirestore.instance.collection('users');
 
   Future updateUserData(
       String uid, String name, String email, String profileURL) async {
@@ -17,18 +17,18 @@ class DatabaseService {
       "uid": uid,
       "name": name,
       "email": email,
-      'profileImage': profileURL,
+      'profile-image': profileURL,
     });
   }
 
   // Get user data and return User model
   Future<current.User> getUserData() async {
-    current.User user = await collection.doc(uid).get().then((document) {
+    current.User user = await collection.doc(_uid).get().then((document) {
       return current.User(
           uid: document['uid'],
           name: document['name'],
           email: document['email'],
-          profileImage: document['profileImage'],
+          profileImage: document['profile-image'],
           points: 0);
     });
     return user;
@@ -44,29 +44,73 @@ class DatabaseService {
     return imageUrl;
   }
 
+  // Update profile settings from profile_settings_Screen using this method.
+  void profileSettingsUpdate(current.User _user, File _profileImage) async {
+    String imgURL;
+    if (_profileImage != null) {
+      imgURL = await (this
+          .uploadImageToFirebase(_profileImage, _user.uid, 'profile-images/'));
+    }
+    this.updateUserData(_uid, _user.name, _user.email, imgURL);
+  }
+
+  //--------------------------------------------------------------------
+
   Future createChallenge(
       String uid, String title, String description, String imageUrl) async {
     CollectionReference challenges =
         FirebaseFirestore.instance.collection('challenges');
     return await challenges.doc(uid).set({
       "creater-id": uid,
-      "name": title,
+      "title": title,
       "description": description,
-      "cover-photo": imageUrl,
+      "challenge-cover-image": imageUrl,
     });
   }
 
-  List<Challenge> _challengeListFromSnapshot(QuerySnapshot snapshot){
-    print('ssdadsa');
-    print(snapshot.docs.toString());
-    List<Challenge> l = snapshot.docs.map((e){return Challenge(id: e.id, title: e['name'], description: e['description'], coverPhoto: e['cover-photo'], created: null, deadline: null);}).toList();
-    print(l.toString());
-    return l;
+  void addChallenge(Challenge _challenge, File _challengeCoverImage) async {
+    String imgURL;
+    if (_challengeCoverImage != null) {
+      imgURL = await (this.uploadImageToFirebase(
+          _challengeCoverImage, _uid, 'challenge-cover-image/'));
+    }
+    this.createChallenge(
+        _uid, _challenge.title, _challenge.description, imgURL);
   }
 
-  Stream<List<Challenge>> get challenges {
+  List<Challenge> _challengeListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return Challenge(
+          id: e.id,
+          title: e['title'],
+          description: e['description'],
+          coverPhoto: e['challenge-cover-image'],
+          created: null,
+          deadline: null);
+    }).toList();
+  }
+
+  Stream<List<Challenge>> get getChallenges {
     CollectionReference challenge =
         FirebaseFirestore.instance.collection('challenges');
     return challenge.snapshots().map(_challengeListFromSnapshot);
+  }
+
+  //--------------------------------------------------------------------
+
+  List<current.User> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return current.User(
+          uid: e['uid'],
+          email: e['email'],
+          name: e['name'],
+          profileImage: e['profile-image'],
+          points: 0);
+    }).toList();
+  }
+
+  Stream<List<current.User>> get getUsers {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    return users.snapshots().map(_userListFromSnapshot);
   }
 }

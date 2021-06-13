@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../Classes/challengeEntry.dart';
-import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
 // Creating a challange entry form
 class AddEntry extends StatefulWidget {
@@ -32,7 +30,6 @@ class _AddEntry extends State<AddEntry> {
   @override
   Widget build(BuildContext context) {
     
-    final challenges = Provider.of<ChallengeListDemo>(context);
     return Container(
       child: Form(
         key: _form,
@@ -51,7 +48,6 @@ class _AddEntry extends State<AddEntry> {
               },
               onFieldSubmitted: (_) {
                 _saveForm(_selectedChallenge);
-                challenges.notify();
                 Navigator.of(context).pop();
               },
             ),
