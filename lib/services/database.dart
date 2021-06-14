@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:semester_cup/Classes/challenge.dart';
+import '../Classes/challenge.dart';
+import '../Classes/challengeEntry.dart';
 import '../Classes/user.dart' as current;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
@@ -60,7 +61,7 @@ class DatabaseService {
       String uid, String title, String description, String imageUrl) async {
     CollectionReference challenges =
         FirebaseFirestore.instance.collection('challenges');
-    return await challenges.doc(uid).set({
+    return await challenges.doc().set({
       "creater-id": uid,
       "title": title,
       "description": description,
@@ -96,6 +97,26 @@ class DatabaseService {
     return challenge.snapshots().map(_challengeListFromSnapshot);
   }
 
+  //--------------------------------------------------------------------
+
+  Future createChallengeEntry(String imageUrl, String description, String uid) async {
+    CollectionReference challenges =
+        FirebaseFirestore.instance.collection('entries');
+    return await challenges.doc().set({
+      "creater-id": uid,
+      "description": description,
+      "challenge-entry-image": imageUrl,
+      "votes": 0
+    });
+  }
+  void addEntry(ChallengeEntry _entry, File _challengeCoverImage, String challengeID, String _uid) async {
+    String imgURL;
+    if (_challengeCoverImage != null) {
+      imgURL = await (this.uploadImageToFirebase(
+          _challengeCoverImage, _uid, 'challenge-entry-image/'));
+    }
+    this.createChallengeEntry(imgURL, _entry.title, _uid);
+  }
   //--------------------------------------------------------------------
 
   List<current.User> _userListFromSnapshot(QuerySnapshot snapshot) {

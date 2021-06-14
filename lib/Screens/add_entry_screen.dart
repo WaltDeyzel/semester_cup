@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
+
+import '../services/database.dart';
 
 import '../Classes/challengeEntry.dart';
 import '../Classes/challenge.dart';
+import '../Classes/user.dart';
 
 import '../Widgets/photo_circle.dart';
 
@@ -24,7 +28,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
   var _newChallengeEntry = ChallengeEntry(id: '', title: '', votes: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(Challenge selectedChallenge) {
+  void _submitData(String uid) {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -38,7 +42,8 @@ class _AddEntryScreen extends State<AddEntryScreen> {
           });
     } else {
       _form.currentState.save();
-      selectedChallenge.addEntry(_newChallengeEntry);
+      DatabaseService database = DatabaseService('uid');
+      database.addEntry(_newChallengeEntry, _coverPhoto, 'challengeID', uid);
       Navigator.of(context).pop();
     }
   }
@@ -54,6 +59,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context).uid;
     final challenge = ModalRoute.of(context).settings.arguments as Challenge;
     return Scaffold(
       body: Container(
@@ -106,7 +112,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
                       onPressed: () {
-                        _submitData(challenge);
+                        _submitData(uid);
                       },
                     ),
                   ),
