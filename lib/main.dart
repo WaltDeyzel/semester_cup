@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:semester_cup/Classes/challengeEntry.dart';
 import 'package:semester_cup/services/database.dart';
 
 import './services/authentication.dart';
@@ -34,8 +35,14 @@ class MyApp extends StatelessWidget {
         StreamProvider<current.User>.value(
           value: AuthService().user,
         ),
-        StreamProvider<List<Challenge>>.value(
-          value: DatabaseService('').getChallenges,
+        // StreamProvider<List<Challenge>>.value(
+        //   value: DatabaseService('').getChallenges,
+        // ),
+        FutureProvider<List<Challenge>>.value(
+          value: DatabaseService('').getChallenges2,
+        ),
+        FutureProvider<List<ChallengeEntry>>.value(
+          value: DatabaseService('').getEntires,
         ),
       ],
       child: MaterialApp(
@@ -68,7 +75,8 @@ class MyApp extends StatelessWidget {
                   color: Colors.teal)),
         ),
         routes: {
-          '/': (ctx) => Wrapper(),// Wrapper toggles between Home Screen and SignIn/SignUp screen depending on if user is signed in.
+          '/': (ctx) =>
+              Wrapper(), // Wrapper toggles between Home Screen and SignIn/SignUp screen depending on if user is signed in.
           ChallengeListScreen.routeName: (ctx) => ChallengeListScreen(),
           LeaderboardScreen.routeName: (ctx) => LeaderboardScreen(),
           SpesificChallengeScreen.routeName: (ctx) => SpesificChallengeScreen(),

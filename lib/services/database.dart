@@ -97,6 +97,11 @@ class DatabaseService {
     return challenge.snapshots().map(_challengeListFromSnapshot);
   }
 
+   Future<List<Challenge>> get getChallenges2 async{
+    QuerySnapshot challenges = await FirebaseFirestore.instance.collection('challenges').get();
+    return _challengeListFromSnapshot(challenges);
+  }
+
   //--------------------------------------------------------------------
 
   Future createChallengeEntry(String imageUrl, String description, String uid) async {
@@ -116,6 +121,17 @@ class DatabaseService {
           _challengeCoverImage, _uid, 'challenge-entry-image/'));
     }
     this.createChallengeEntry(imgURL, _entry.title, _uid);
+  }
+
+  List<ChallengeEntry> _entryListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return ChallengeEntry(id: e.id, title: e['description'], votes: e['votes'], pictureURL: e['challenge-entry-image']);
+    }).toList();
+  }
+
+  Future<List<ChallengeEntry>> get getEntires async{
+    QuerySnapshot entries = await FirebaseFirestore.instance.collection('entries').get();
+    return _entryListFromSnapshot(entries);
   }
   //--------------------------------------------------------------------
 

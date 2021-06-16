@@ -11,7 +11,7 @@ class EntryItemTile extends StatefulWidget {
 class _EntryItemTile extends State<EntryItemTile> {
   ChallengeEntry entry;
   _EntryItemTile(this.entry);
-
+  
   // TOGGLE VOTING FOR ENTRY
   void addLike() {
     setState(() {
@@ -47,10 +47,10 @@ class _EntryItemTile extends State<EntryItemTile> {
                     border: Border.all(color: Colors.white, width: 0.5),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: entry.photo == null
+                      image: 
                           // NETWORK IMAGE IS TEMP. WILL REPLACE WITH DEFAULT IMAGE IF CHALLENGE IMAGE DOES NOT LOAD
-                          ? NetworkImage(entry.pictureURL)
-                          : FileImage(entry.photo),
+                          NetworkImage(entry.pictureURL)
+                          
                     ),
                   ),
                   height: 300,
