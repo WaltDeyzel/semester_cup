@@ -3,7 +3,7 @@ import '../Classes/challenge.dart';
 import '../Screens/spesific_challange_screen.dart';
 class ChallangeTile extends StatefulWidget {
   //final selectedChallengeRoute;
-  final challange;
+  final Challenge challange;
   ChallangeTile(this.challange);
   @override
   _ChallangeTile createState() =>
@@ -13,14 +13,15 @@ class ChallangeTile extends StatefulWidget {
 class _ChallangeTile extends State<ChallangeTile> {
   final Challenge _challange;
   _ChallangeTile(this._challange);
-
-  void _selectedChallengeRoute(Challenge challenge, BuildContext context) {
+  
+  void _selectedChallengeRoute(Challenge _challenge, BuildContext context) {
     Navigator.of(context)
-        .pushNamed(SpesificChallengeScreen.routeName, arguments: challenge);
+        .pushNamed(SpesificChallengeScreen.routeName, arguments: _challenge);
   }
 
   bool info = false;
   static const Color cardsColour = Colors.white;
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -35,11 +36,10 @@ class _ChallangeTile extends State<ChallangeTile> {
               border: Border.all(color: Colors.black, width: 0.5),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: _challange.coverPhoto == null
+                image: 
                 // NETWORK IMAGE IS TEMP. WILL REPLACE WITH DEFAULT IMAGE IF CHALLENGE IMAGE DOES NOT LOAD
-                    ? NetworkImage(
-                        'https://cdn.mos.cms.futurecdn.net/ntFmJUZ8tw3ULD3tkBaAtf.jpg')
-                    : FileImage(_challange.coverPhoto),
+                
+                    NetworkImage(_challange.coverPhoto),
               ),
             ),
             child: Center(
@@ -101,8 +101,9 @@ class _ChallangeTile extends State<ChallangeTile> {
                       child: Row(
                         children: [
                           Icon(Icons.add_box_outlined),
+                          //_challange.getNoSubmist().toString(),
                           Text(
-                            _challange.getNoSubmist().toString(),
+                            'fix'
                           ),
                         ],
                       ),

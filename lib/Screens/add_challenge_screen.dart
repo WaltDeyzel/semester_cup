@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:intl/intl.dart';
+import '../services/database.dart';
 
-import '../Classes/challenges_demo.dart';
 import '../Classes/challenge.dart';
+import '../Classes/user.dart';
 
 import '../Widgets/photo_circle.dart';
 
@@ -27,7 +28,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
   var _newChallenge = Challenge(id: '', created: null, deadline: null, title: '', description: '');
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(ChallengeListDemo challenges) {
+  void _submitData(String uid) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -41,8 +42,8 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
           });
     } else {
       _form.currentState.save();
-      challenges.addChallenge(_newChallenge);
-      challenges.notify();
+      DatabaseService challengeData = DatabaseService(uid);
+      challengeData.addChallenge(_newChallenge, _coverPhoto);
       Navigator.of(context).pop();
     }
   }
@@ -74,7 +75,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final challenges = Provider.of<ChallengeListDemo>(context);
+    String uid = Provider.of<User>(context).uid;
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.only(top: 45),
@@ -140,7 +141,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                         id: _newChallenge.id,
                         title: _newChallenge.title,
                         description: newValue,
-                        coverPhoto: _coverPhoto,
+                        coverPhoto: '',
                         deadline: _selectedDate,
                         created: DateTime.now(),
                         submits: []);
@@ -163,7 +164,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 24)),
                     onPressed: () {
-                      _submitData(challenges);
+                      _submitData(uid);
                     },
                   ),
                 ),

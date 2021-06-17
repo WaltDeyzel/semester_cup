@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   final AuthService _auth = AuthService();
-  final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
+  
   int _pageIndex = 0;
   void _selectPage(int index) {
     setState(() {
@@ -22,6 +22,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _pages = [ChallengeListScreen(), LeaderboardScreen()];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

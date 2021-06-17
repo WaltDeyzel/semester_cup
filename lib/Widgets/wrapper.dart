@@ -5,7 +5,7 @@ import '../Screens/login_screen.dart';
 
 import '../Classes/user.dart';
 
-class Wrapepr extends StatelessWidget {
+class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);

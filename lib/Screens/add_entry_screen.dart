@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:provider/provider.dart';
+import 'dart:io';
+
+import '../services/database.dart';
 
 import '../Classes/challengeEntry.dart';
 import '../Classes/challenge.dart';
-import '../Classes/challenges_demo.dart';
+import '../Classes/user.dart';
 
 import '../Widgets/photo_circle.dart';
 
@@ -26,7 +28,9 @@ class _AddEntryScreen extends State<AddEntryScreen> {
   var _newChallengeEntry = ChallengeEntry(id: '', title: '', votes: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(Challenge selectedChallenge, ChallengeListDemo challenges) {
+  void _submitData(String uid, String challengeID) {
+    DatabaseService database = DatabaseService('uid');
+    database.getEntires;
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -40,8 +44,8 @@ class _AddEntryScreen extends State<AddEntryScreen> {
           });
     } else {
       _form.currentState.save();
-      selectedChallenge.addEntry(_newChallengeEntry);
-      challenges.notify();
+      //DatabaseService database = DatabaseService('uid');
+      database.addEntry(_newChallengeEntry, _coverPhoto, challengeID, uid);
       Navigator.of(context).pop();
     }
   }
@@ -57,8 +61,8 @@ class _AddEntryScreen extends State<AddEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context).uid;
     final challenge = ModalRoute.of(context).settings.arguments as Challenge;
-    final challenges = Provider.of<ChallengeListDemo>(context);
     return Scaffold(
       body: Container(
           padding: const EdgeInsets.only(top: 45),
@@ -110,7 +114,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
                       onPressed: () {
-                        _submitData(challenge, challenges);
+                        _submitData(uid, challenge.id);
                       },
                     ),
                   ),

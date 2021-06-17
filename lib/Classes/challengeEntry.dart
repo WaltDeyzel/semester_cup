@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import './user.dart';
 import 'dart:io';
 
 class ChallengeEntry with ChangeNotifier{
@@ -10,16 +9,14 @@ class ChallengeEntry with ChangeNotifier{
   final File photo;
   final DateTime dateTime;
   int votes;
-  final User user;
   bool liked = false;
 
   ChallengeEntry({
     @required this.id,
     @required this.title,
+    @required this.votes,
     this.pictureURL,
     this.dateTime,
-    @required this.votes,
-    this.user,
     this.photo
   });
 }

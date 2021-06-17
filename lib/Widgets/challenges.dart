@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:semester_cup/services/database.dart';
 
-import '../Classes/challenges_demo.dart';
 import '../Widgets/challengeTile.dart';
 
 class Challenges extends StatelessWidget {
-  
+
   @override
   Widget build(BuildContext context) {
-    final challenges = Provider.of<ChallengeListDemo>(context).items;
-    return ListView.builder(
-      itemCount: challenges.length,
-      itemBuilder: (context, index) {
-        return ChallangeTile(challenges[index]);
-      },
-    );
+    DatabaseService database = DatabaseService('');
+    return FutureBuilder(
+      future: database.getChallenges2,
+      initialData: [],
+      builder: (context, challenge) {
+      return ListView.builder(
+        itemCount: challenge.data.length,
+        itemBuilder: (context, index) {
+          print(challenge.data[index].id);
+          return ChallangeTile(challenge.data[index]);
+        },
+      );
+    });
   }
 }

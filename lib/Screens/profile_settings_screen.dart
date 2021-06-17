@@ -37,14 +37,8 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
     } else {
       print(user.uid);
       _form.currentState.save();
-      DatabaseService userData = DatabaseService(user.uid);
-      String imgURL;
-      if (_coverPhoto != null) {
-        imgURL = await (userData.uploadImageToFirebase(_coverPhoto, user.uid));
-      }
-      print('----------------------------');
-      print(user.uid);
-      userData.updateUserData(user.uid, _newUser.name, user.email, imgURL);
+      DatabaseService updateUserData = DatabaseService(user.uid);
+      updateUserData.profileSettingsUpdate(_newUser, _coverPhoto);
       Navigator.of(context).pop();
     }
   }
