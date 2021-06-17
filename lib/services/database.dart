@@ -38,10 +38,10 @@ class DatabaseService {
 
   // Upload user file and return a URL to file on database
   Future<String> uploadImageToFirebase(
-      File file, String uid, String path) async {
+      File file, String fileName, String path) async {
     FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
     UploadTask uploadTask =
-        _firebaseStorage.ref().child(path + uid + '.jpg').putFile(file);
+        _firebaseStorage.ref().child(path + fileName + '.jpg').putFile(file);
     String imageUrl = await (await uploadTask).ref.getDownloadURL();
     return imageUrl;
   }
@@ -74,7 +74,7 @@ class DatabaseService {
     String imgURL;
     if (_challengeCoverImage != null) {
       imgURL = await (this.uploadImageToFirebase(
-          _challengeCoverImage, _uid, 'challenge-cover-image/'));
+          _challengeCoverImage, _uid+'-'+_challenge.id, 'challenge-cover-image/'));
     }
     this.createChallenge(
         _uid, _challenge.title, _challenge.description, imgURL);
@@ -120,7 +120,7 @@ class DatabaseService {
     String imgURL;
     if (_challengeCoverImage != null) {
       imgURL = await (this.uploadImageToFirebase(
-          _challengeCoverImage, _uid, 'challenge-entry-image/'));
+          _challengeCoverImage, _uid+'-'+challengeID, 'challenge-entry-image/'));
     }
     this.createChallengeEntry(imgURL, _entry.title, _uid, challengeID);
   }

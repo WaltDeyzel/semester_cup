@@ -29,8 +29,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
   void _submitData(String uid, String challengeID) {
-    DatabaseService database = DatabaseService('uid');
-    database.getEntires;
+    
     final isValid = _form.currentState.validate();
     if (!isValid) return;
     // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
@@ -44,7 +43,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
           });
     } else {
       _form.currentState.save();
-      //DatabaseService database = DatabaseService('uid');
+      DatabaseService database = DatabaseService(uid);
       database.addEntry(_newChallengeEntry, _coverPhoto, challengeID, uid);
       Navigator.of(context).pop();
     }
