@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:semester_cup/Classes/challengeEntry.dart';
-import 'package:semester_cup/services/database.dart';
+import './services/database.dart';
 
 import './services/authentication.dart';
 import './Screens/profile_screen.dart';
@@ -41,9 +40,9 @@ class MyApp extends StatelessWidget {
         FutureProvider<List<Challenge>>.value(
           value: DatabaseService('').getChallenges2,
         ),
-        FutureProvider<List<ChallengeEntry>>.value(
-          value: DatabaseService('').getEntires,
-        ),
+        // FutureProvider<List<ChallengeEntry>>.value(
+        //   value: DatabaseService('').getEntires,
+        // ),
       ],
       child: MaterialApp(
         title: 'SemesterCup',

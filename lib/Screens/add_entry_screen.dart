@@ -28,7 +28,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
   var _newChallengeEntry = ChallengeEntry(id: '', title: '', votes: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
-  void _submitData(String uid) {
+  void _submitData(String uid, String challengeID) {
     DatabaseService database = DatabaseService('uid');
     database.getEntires;
     final isValid = _form.currentState.validate();
@@ -45,7 +45,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
     } else {
       _form.currentState.save();
       //DatabaseService database = DatabaseService('uid');
-      database.addEntry(_newChallengeEntry, _coverPhoto, 'challengeID', uid);
+      database.addEntry(_newChallengeEntry, _coverPhoto, challengeID, uid);
       Navigator.of(context).pop();
     }
   }
@@ -114,7 +114,7 @@ class _AddEntryScreen extends State<AddEntryScreen> {
                             fontWeight: FontWeight.bold, fontSize: 24),
                       ),
                       onPressed: () {
-                        _submitData(uid);
+                        _submitData(uid, challenge.id);
                       },
                     ),
                   ),

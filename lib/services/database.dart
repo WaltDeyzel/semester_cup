@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+
 import '../Classes/challenge.dart';
 import '../Classes/challengeEntry.dart';
 import '../Classes/user.dart' as current;
-import 'package:firebase_storage/firebase_storage.dart';
-import 'dart:io';
 
 class DatabaseService {
   final String _uid;
@@ -56,7 +57,7 @@ class DatabaseService {
   }
 
   //--------------------------------------------------------------------
-
+  
   Future createChallenge(
       String uid, String title, String description, String imageUrl) async {
     CollectionReference challenges =
@@ -68,7 +69,7 @@ class DatabaseService {
       "challenge-cover-image": imageUrl,
     });
   }
-
+  // Function that is called to create challenge and upload it to firebase
   void addChallenge(Challenge _challenge, File _challengeCoverImage) async {
     String imgURL;
     if (_challengeCoverImage != null) {
@@ -78,11 +79,11 @@ class DatabaseService {
     this.createChallenge(
         _uid, _challenge.title, _challenge.description, imgURL);
   }
-
+  // Convert database data to objects
   List<Challenge> _challengeListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       return Challenge(
-          id: e.id,
+          id: e.id, // ID OF CHALLENGE
           title: e['title'],
           description: e['description'],
           coverPhoto: e['challenge-cover-image'],
@@ -90,13 +91,13 @@ class DatabaseService {
           deadline: null);
     }).toList();
   }
-
+  // Create a stream to get data from firebase continuously. 
   Stream<List<Challenge>> get getChallenges {
     CollectionReference challenge =
         FirebaseFirestore.instance.collection('challenges');
     return challenge.snapshots().map(_challengeListFromSnapshot);
   }
-
+  // Read all data from a collection.
    Future<List<Challenge>> get getChallenges2 async{
     QuerySnapshot challenges = await FirebaseFirestore.instance.collection('challenges').get();
     return _challengeListFromSnapshot(challenges);
@@ -104,9 +105,9 @@ class DatabaseService {
 
   //--------------------------------------------------------------------
 
-  Future createChallengeEntry(String imageUrl, String description, String uid) async {
+  Future createChallengeEntry(String imageUrl, String description, String uid, String challengeID) async {
     CollectionReference challenges =
-        FirebaseFirestore.instance.collection('entries');
+        FirebaseFirestore.instance.collection('challenge-'+challengeID);
     return await challenges.doc().set({
       "creater-id": uid,
       "description": description,
@@ -114,15 +115,16 @@ class DatabaseService {
       "votes": 0
     });
   }
+  // Function that is called to create challenge entry and upload it to firebase
   void addEntry(ChallengeEntry _entry, File _challengeCoverImage, String challengeID, String _uid) async {
     String imgURL;
     if (_challengeCoverImage != null) {
       imgURL = await (this.uploadImageToFirebase(
           _challengeCoverImage, _uid, 'challenge-entry-image/'));
     }
-    this.createChallengeEntry(imgURL, _entry.title, _uid);
+    this.createChallengeEntry(imgURL, _entry.title, _uid, challengeID);
   }
-
+  // Convert database data to objects
   List<ChallengeEntry> _entryListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       return ChallengeEntry(id: e.id, title: e['description'], votes: e['votes'], pictureURL: e['challenge-entry-image']);
@@ -130,11 +132,11 @@ class DatabaseService {
   }
 
   Future<List<ChallengeEntry>> get getEntires async{
-    QuerySnapshot entries = await FirebaseFirestore.instance.collection('entries').get();
+    QuerySnapshot entries = await FirebaseFirestore.instance.collection('challenge-'+_uid).get();
     return _entryListFromSnapshot(entries);
   }
   //--------------------------------------------------------------------
-
+  // Convert database data to objects
   List<current.User> _userListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((e) {
       return current.User(
@@ -145,7 +147,7 @@ class DatabaseService {
           points: 0);
     }).toList();
   }
-
+  // Create a stream to get data from firebase continuously. 
   Stream<List<current.User>> get getUsers {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     return users.snapshots().map(_userListFromSnapshot);
