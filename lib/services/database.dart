@@ -70,7 +70,7 @@ class DatabaseService {
     });
   }
   // Function that is called to create challenge and upload it to firebase
-  void addChallenge(Challenge _challenge, File _challengeCoverImage) async {
+  void addChallenge(Challenge _challenge, File _challengeCoverImage, String _uid) async {
     String imgURL;
     if (_challengeCoverImage != null) {
       imgURL = await (this.uploadImageToFirebase(

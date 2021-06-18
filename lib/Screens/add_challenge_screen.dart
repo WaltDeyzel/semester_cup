@@ -43,7 +43,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
     } else {
       _form.currentState.save();
       DatabaseService challengeData = DatabaseService(uid);
-      challengeData.addChallenge(_newChallenge, _coverPhoto);
+      challengeData.addChallenge(_newChallenge, _coverPhoto, uid);
       Navigator.of(context).pop();
     }
   }
@@ -110,7 +110,7 @@ class _AddChallengeScreen extends State<AddChallengeScreen> {
                   },
                   onSaved: (newValue) {
                     _newChallenge = Challenge(
-                        id: 'id',
+                        id: DateTime.now().toString(),
                         created: _newChallenge.created,
                         deadline: _newChallenge.deadline,
                         title: newValue,
