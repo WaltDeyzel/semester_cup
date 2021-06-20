@@ -4,12 +4,12 @@ import '../services/database.dart';
 import 'challenge_entry.dart';
 
 class ChallengeEntries extends StatelessWidget {
-  final selectedChallengeID;
-  ChallengeEntries(this.selectedChallengeID);
+  final challengeID;
+  ChallengeEntries(this.challengeID);
 
   @override
   Widget build(BuildContext context) {
-    DatabaseService database = DatabaseService(selectedChallengeID);
+    DatabaseService database = DatabaseService(challengeID);
     return FutureBuilder(
         future: database.getEntires,
         initialData: [],
@@ -17,7 +17,7 @@ class ChallengeEntries extends StatelessWidget {
           return ListView.builder(
             itemCount: entry.data.length,
             itemBuilder: (context, index) {
-              return EntryItemTile(entry.data[index]);
+              return EntryItemTile(entry.data[index], challengeID);
             },
           );
         });

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/database.dart';
 import '../Classes/challenge.dart';
+import '../Classes/user.dart';
 import '../Screens/spesific_challange_screen.dart';
 class ChallangeTile extends StatefulWidget {
   //final selectedChallengeRoute;
-  final Challenge challange;
-  ChallangeTile(this.challange);
+  final Challenge challenge;
+  ChallangeTile(this.challenge);
   @override
   _ChallangeTile createState() =>
-      _ChallangeTile(this.challange);
+      _ChallangeTile(this.challenge);
 }
 
 class _ChallangeTile extends State<ChallangeTile> {
@@ -24,6 +27,7 @@ class _ChallangeTile extends State<ChallangeTile> {
   
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context).uid;
     return InkWell(
       onTap: () {
         _selectedChallengeRoute(_challange, context);
@@ -84,6 +88,18 @@ class _ChallangeTile extends State<ChallangeTile> {
                     print(info);
                     info = !info;
                   });
+                }),
+          ),
+          Positioned(
+            left: 0,
+            child: IconButton(
+                icon: Icon(
+                  Icons.delete,
+                  color: cardsColour,
+                ),
+                onPressed: () {
+                  DatabaseService database = DatabaseService(uid);
+                  database.deleteChallenge(uid, _challange.id, _challange.coverPhoto);
                 }),
           ),
           // AMOUNT OF ENTRIES, VOTES, DEADLINE, PRIZES ETC TYPE OF INFORMATION DISPLAYED AT BOTTOM OF IGAME.

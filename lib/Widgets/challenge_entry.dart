@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:semester_cup/services/database.dart';
+
 import '../Classes/challengeEntry.dart';
+import '../Classes/user.dart';
 
 class EntryItemTile extends StatefulWidget {
   final entry;
-  EntryItemTile(this.entry);
+  final challengeID;
+  EntryItemTile(this.entry, this.challengeID);
   @override
-  _EntryItemTile createState() => _EntryItemTile(this.entry);
+  _EntryItemTile createState() => _EntryItemTile(this.entry, this.challengeID);
 }
 
 class _EntryItemTile extends State<EntryItemTile> {
   ChallengeEntry entry;
-  _EntryItemTile(this.entry);
+  String challengeID;
+  _EntryItemTile(this.entry, this.challengeID);
   
   // TOGGLE VOTING FOR ENTRY
   void addLike() {
@@ -27,6 +33,7 @@ class _EntryItemTile extends State<EntryItemTile> {
 
   @override
   Widget build(BuildContext context) {
+    final uid = Provider.of<User>(context).uid;
     return Container(
       decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
       child: Column(
@@ -62,11 +69,13 @@ class _EntryItemTile extends State<EntryItemTile> {
                   child: IconButton(
                       padding: EdgeInsets.all(0),
                       icon: Icon(
-                        Icons.account_circle_outlined,
+                        Icons.delete,
                       ),
                       onPressed: () {
                         // GO TO PROFILE OF USER
                         setState(() {
+                          DatabaseService database = DatabaseService('');
+                          database.deleteChallengeEntry(uid, challengeID, entry.id);
                           // print(info);
                           // info = !info;
                         });
