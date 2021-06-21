@@ -19,26 +19,17 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
   File _coverPhoto; // COVER PHOTO SELCTED BY USER
 
   // NEW USER
-  var _newUser = User(uid: '', email: '', name: '', points: 0);
+  User _newUser = User(uid: '', email: '', name: '', points: 0);
 
   // ONCE ALL THE FIELDS ARE FILLED IT WILL BE VALIDATED AND SUBMITTED.
   void _submitData(User user) async {
     final isValid = _form.currentState.validate();
     if (!isValid) return;
-    // IF A COVER PHOTO IS NOT SELECTED PROPT USER TO SELECT ONE
-    if (_coverPhoto == null) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Selecte a photo.'),
-            );
-          });
-    } else {
-      print(user.uid);
+    else {
       _form.currentState.save();
+      _newUser.profilePhoto = _coverPhoto;
       DatabaseService updateUserData = DatabaseService(user.uid);
-      updateUserData.profileSettingsUpdate(_newUser, _coverPhoto);
+      updateUserData.profileSettingsUpdate(_newUser);
       Navigator.of(context).pop();
     }
   }
@@ -84,7 +75,7 @@ class _ProfileSettingsScreen extends State<ProfileSettingsScreen> {
                   ),
                   onSaved: (name) {
                     _newUser =
-                        User(uid: user.uid, email: user.email, name: name, points: user.points);
+                        User(uid: user.uid, email: user.email, name: name, points: user.points, profileImage: user.profileImage);
                   },
                 ),
                 // SPACING

@@ -17,15 +17,18 @@ class _EntryItemTile extends State<EntryItemTile> {
   ChallengeEntry entry;
   String challengeID;
   _EntryItemTile(this.entry, this.challengeID);
-  
+  DatabaseService database = DatabaseService('');
+
   // TOGGLE VOTING FOR ENTRY
-  void addLike() {
+  void addLike(String entryID, String uid, String challengeID) {
     setState(() {
       if (!entry.liked) {
         entry.votes += 1;
+        database.updateVote(entry.id, 1, uid, challengeID);
         entry.liked = true;
       } else if (entry.liked) {
         entry.votes -= 1;
+        database.updateVote(entry.id, -1, uid, challengeID);
         entry.liked = false;
       }
     });
@@ -43,7 +46,7 @@ class _EntryItemTile extends State<EntryItemTile> {
               // _selectedChallengeRoute(_challange, context);
             },
             onDoubleTap: () {
-              addLike();
+              addLike(entry.id, uid, challengeID);
             },
             // STACK EVERYTHING ON THE IMAGE
             child: Stack(
@@ -74,7 +77,7 @@ class _EntryItemTile extends State<EntryItemTile> {
                       onPressed: () {
                         // GO TO PROFILE OF USER
                         setState(() {
-                          DatabaseService database = DatabaseService('');
+                          
                           database.deleteChallengeEntry(uid, challengeID, entry.id);
                           // print(info);
                           // info = !info;
@@ -101,7 +104,7 @@ class _EntryItemTile extends State<EntryItemTile> {
                         ),
                   color: Theme.of(context).primaryColor,
                   onPressed: () {
-                    addLike();
+                    addLike(entry.id, uid, challengeID);
                   },
                 ),
                 Text(

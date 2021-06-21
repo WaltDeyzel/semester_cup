@@ -13,13 +13,39 @@ class DatabaseService {
   final CollectionReference collection =
       FirebaseFirestore.instance.collection('users');
 
-  Future updateUserData(
-      String uid, String name, String email, String profileURL) async {
-    return await collection.doc(uid).set({
-      "uid": uid,
-      "name": name,
-      "email": email,
-      'profile-image': profileURL,
+  // Upload user file and return a URL to file on database
+  Future<String> _uploadImageToFirebase(File file, String fileName, String path) async {
+    FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+    UploadTask uploadTask =_firebaseStorage.ref().child(path + fileName + '.jpg').putFile(file);
+    String imageUrl = await (await uploadTask).ref.getDownloadURL();
+    return imageUrl;
+  }
+
+  //--------------------------------------------------------------------
+  // USER BEGIN
+  // Convert database data to objects
+  List<current.User> _userListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((e) {
+      return current.User(
+          uid: e['uid'],
+          email: e['email'],
+          name: e['name'],
+          profileImage: e['profile-image'],
+          points: 0);
+    }).toList();
+  }
+  // Create a stream to get data from firebase continuously. 
+  Stream<List<current.User>> get getUsers {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    return users.snapshots().map(_userListFromSnapshot);
+  }
+
+  Future updateUserData(current.User _user) async {
+    return await collection.doc(_user.uid).set({
+      "uid": _user.uid,
+      "name": _user.name,
+      "email": _user.email,
+      'profile-image': _user.profileImage,
     });
   }
 
@@ -36,23 +62,19 @@ class DatabaseService {
     return user;
   }
 
-  // Upload user file and return a URL to file on database
-  Future<String> _uploadImageToFirebase(File file, String fileName, String path) async {
-    FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-    UploadTask uploadTask =_firebaseStorage.ref().child(path + fileName + '.jpg').putFile(file);
-    String imageUrl = await (await uploadTask).ref.getDownloadURL();
-    return imageUrl;
-  }
-
   // Update profile settings from profile_settings_Screen using this method.
-  void profileSettingsUpdate(current.User _user, File _profileImage) async {
-    String imgURL = await (this._uploadImageToFirebase(_profileImage, _user.uid, 'profile-images/'));
+  void profileSettingsUpdate(current.User _user) async {
     
-    this.updateUserData(_uid, _user.name, _user.email, imgURL);
+    if(_user.profilePhoto != null){
+      _user.profileImage = await (this._uploadImageToFirebase(_user.profilePhoto, _user.uid, 'profile-images/'));
+    }
+    
+    this.updateUserData(_user);
   }
-
+  // USER END
   //--------------------------------------------------------------------
-  
+  //--------------------------------------------------------------------
+  // CHALLENGE BEGIN
   Future _createChallenge( String uid, Challenge _challenge, File _challengeCoverImage) async {
     CollectionReference challenges = FirebaseFirestore.instance.collection('challenges');
     DocumentReference document = challenges.doc();
@@ -106,17 +128,18 @@ class DatabaseService {
     await _firebaseStorage.ref().child(_file).delete();
     
   }
-
+  // CHALLENGE END
   //--------------------------------------------------------------------
-
-  Future _createChallengeEntry(String imageUrl, String description, String uid, String challengeID) async {
+  //--------------------------------------------------------------------
+  // CHALLENGEENTRY BEGIN
+  Future _createChallengeEntry(String imageUrl, String uid, String challengeID, ChallengeEntry _entry) async {
     CollectionReference challenges =
         FirebaseFirestore.instance.collection('challenge-'+challengeID);
     return await challenges.doc().set({
       "creator-id": uid,
-      "description": description,
+      "description": _entry.title,
       "challenge-entry-image": imageUrl,
-      "votes": 0
+      "votes": _entry.votes
     });
   }
   // Function that is called to create challenge entry and upload it to firebase
@@ -125,7 +148,7 @@ class DatabaseService {
     String fileName = _challengeID;
     String imgURL = await (this._uploadImageToFirebase(_challengeCoverImage, fileName, folder));
 
-    this._createChallengeEntry(imgURL, _entry.title, _uid, _challengeID);
+    this._createChallengeEntry(imgURL,  _uid, _challengeID, _entry);
   }
   // Convert database data to objects
   List<ChallengeEntry> _entryListFromSnapshot(QuerySnapshot snapshot) {
@@ -137,6 +160,37 @@ class DatabaseService {
   Future<List<ChallengeEntry>> get getEntires async{
     QuerySnapshot entries = await FirebaseFirestore.instance.collection('challenge-'+_uid).get();
     return _entryListFromSnapshot(entries);
+  }
+
+  ChallengeEntry _entryFromSnapshot(DocumentSnapshot e) {
+  
+    return ChallengeEntry(id: e.id, title: e['description'], votes: e['votes'], pictureURL: e['challenge-entry-image']);
+    
+  }
+
+  Future _updateChallengeEntry(String imageUrl, String uid, String challengeID, ChallengeEntry _entry) async {
+    CollectionReference challenges =
+        FirebaseFirestore.instance.collection('challenge-'+challengeID);
+    return await challenges.doc(_entry.id).set({
+      "creator-id": uid,
+      "description": _entry.title,
+      "challenge-entry-image": imageUrl,
+      "votes": _entry.votes
+    });
+  }
+
+  Future<ChallengeEntry> getEntry(String entryID, String challengeID) async{
+    DocumentSnapshot _entry = await FirebaseFirestore.instance.collection('challenge-'+challengeID).doc(entryID).get();
+    print(_entry.data());
+    var e = _entryFromSnapshot(_entry); 
+    
+    return e;
+  }
+
+  void updateVote(String entryID, int like, String _uid, String challengeID) async{
+    ChallengeEntry _entry = await getEntry(entryID, challengeID);
+    _entry.votes += like;
+    this._updateChallengeEntry(_entry.pictureURL,  _uid, challengeID, _entry);
   }
 
   Future deleteChallengeEntry(String uid, String challengeID, String challengeEntryID) async{
@@ -152,21 +206,7 @@ class DatabaseService {
     } 
     else return; 
   }
+  // CHALLENGEENTRY END
   //--------------------------------------------------------------------
-  // Convert database data to objects
-  List<current.User> _userListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map((e) {
-      return current.User(
-          uid: e['uid'],
-          email: e['email'],
-          name: e['name'],
-          profileImage: e['profile-image'],
-          points: 0);
-    }).toList();
-  }
-  // Create a stream to get data from firebase continuously. 
-  Stream<List<current.User>> get getUsers {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-    return users.snapshots().map(_userListFromSnapshot);
-  }
+  //--------------------------------------------------------------------
 }
